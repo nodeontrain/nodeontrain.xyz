@@ -1,0 +1,17 @@
+<ul>
+	<li class="{% if page.overview %}current{% endif %}">
+		<a href="{{ site.url }}/">Overview</a>
+	</li>
+	<li class="{% if page.url contains '/tuts/' %}current{% endif %}">
+		<a href="{{ site.url }}/tuts/home">Tut<span class="show-on-mobiles">s</span><span class="hide-on-mobiles">orial</span></a>
+	</li>
+	<li class="{% if page.author %}current{% endif %}">
+		<a href="{{ site.url }}/news">News</a>
+	</li>
+	<li class="{% if page.url contains '/help/' %}current{% endif %}">
+		<a href="{{ site.url }}/help">Help</a>
+	</li>
+	<li class="">
+		<a href="https://github.com/nodeontrain/trainjs"><span class="hide-on-mobiles">View on </span>GitHub</a>
+	</li>
+</ul>
