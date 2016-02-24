@@ -1,7 +1,7 @@
 ---
 layout: news_item
 title: "Trainjs 0.1.1 Released"
-date: "2013-07-30 00:39 +0700"
+date: "2013-07-30 22:39 +0700"
 author: train255
 version: 0.1.1
 categories: [release]
