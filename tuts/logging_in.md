@@ -198,7 +198,7 @@ sessionsService.factory('Sessions', ['$resource', function($resource){
 module.exports = [
 	{ resources: 'users' },
 	{ post: '/sessions' },
-	{ delete: '/sessions/:id' },
+	{ delete: '/sessions', action: 'destroy' },
 	{ get: '/sessions', action: 'current_user' },
 ];
 {% endhighlight %}
@@ -282,7 +282,7 @@ Having verified by hand that the application is behaving properly upon successfu
 describe('UsersLoginTest', function() {
 	...
 
-	it('login with valid information', function(done) {
+	it('login with valid information', function() {
 		element(by.css('[name="email"]')).clear('');
 		element(by.css('[name="password"]')).clear('');
 		element(by.css('[name="email"]')).sendKeys('user@example.com');
@@ -291,7 +291,6 @@ describe('UsersLoginTest', function() {
 		expect( browser.getCurrentUrl() ).toContain('#/users/');
 		expect( element.all(by.css('[ui-sref="login"]')).count() ).toEqual(0);
 		expect( element.all(by.css('[ui-sref="user_detail({id: current_user.id})"]')).count() ).toEqual(1);
-		done();
 	});
 });
 {% endhighlight %}

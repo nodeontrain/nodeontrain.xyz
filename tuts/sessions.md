@@ -101,7 +101,7 @@ to
 {% highlight javascript %}
 module.exports = [
 	{ post: '/sessions' },
-	{ delete: '/sessions/:id' },
+	{ delete: '/sessions', action: 'destroy' },
 	{ resources: 'users' }
 ];
 {% endhighlight %}
