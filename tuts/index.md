@@ -10,7 +10,7 @@ This site aims to be a comprehensive guide to Node On Train. This tuts is based 
 
 ## So what is Node On Train, exactly?
 
-Node On Train (or Trainjs) is a web's scaffolding for Full Stack Development.
+Node On Train (or Trainjs) is a web's scaffolding for Full Stack Developer.
 This is a great tool for people who have ever used the Rails framework.
 
 ## ProTips™, Notes, and Warnings
