@@ -10,10 +10,10 @@ Now that our login form can handle invalid submissions, the next step is to hand
 
 ### The log_in method
 
-Logging a user in is simple with the help of the `req.session` object defined by `express-session` module.
+Logging a user in is simple with the help of the `req.session` object defined by `cookie-session` module.
 
 {% highlight bash %}
-~/sample_app $ npm install express-session --save
+~/sample_app $ npm install cookie-session --save
 {% endhighlight %}
 
 `app.js`
@@ -22,13 +22,13 @@ Logging a user in is simple with the help of the `req.session` object defined by
 var connect = require('connect');
 var bodyParser = require('body-parser');
 
+var cookieSession = require('cookie-session');
+
 var app = connect();
 app.use(bodyParser.json());
 
-app.use(session({
-	secret: '1234567890QWERTY', // your secret
-	resave: false,
-	saveUninitialized: true,
+app.use(cookieSession({
+	keys: ['1234567890QWERTY']
 }));
 
 module.exports = app;

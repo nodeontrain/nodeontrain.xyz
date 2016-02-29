@@ -8,13 +8,6 @@ permalink: /tuts/sessions/
 
 The most common techniques for implementing sessions in [trainjs](https://nodeontrain.xyz) involve using cookies, which are small pieces of text placed on the user’s browser.
 
-<div class="note info">
-  <h5><a href="https://nodeontrain.xyz">trainjs</a></h5>
-  <p>
-	You should always update <a href="https://nodeontrain.xyz">trainjs</a> for this tutorial.
-  </p>
-</div>
-
 ### Sessions controller
 
 The elements of logging in and out correspond to particular REST actions of the Sessions controller: the login form is handled by the new action, actually logging in is handled by sending a POST request to the create action, and logging out is handled by sending a DELETE request to the destroy action.
