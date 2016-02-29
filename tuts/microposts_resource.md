@@ -40,7 +40,7 @@ Starting 'db:migrate'...
 == 20151229221845_create_microposts: migrated (0.256s)
 {% endhighlight %}
 
-The Rails routes, with a new rule for Microposts resources.
+The [trainjs](https://nodeontrain.xyz) routes, with a new rule for Microposts resources.
 
 {% highlight javascript %}
 module.exports = [

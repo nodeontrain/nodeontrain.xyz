@@ -6,7 +6,7 @@ next_section: unsuccessful_signups
 permalink: /tuts/signup_form/
 ---
 
-Now that we have a working (though not yet complete) user profile page, we’re ready to make a signup form for our site.
+Now that we have a working (though not yet complete) [user profile page](https://nodeontrain.xyz/tuts/showing_users), we’re ready to make a signup form for our site.
 Since we’re about to add the ability to create new users through the web, let’s remove the user created at the console
 
 {% highlight bash %}

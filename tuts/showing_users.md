@@ -8,13 +8,6 @@ permalink: /tuts/showing_users/
 
 In this section, we’ll take the first steps toward the final profile by making a page to display a user’s name and profile photo
 
-<div class="note info">
-  <h5>trainjs</h5>
-  <p>
-	You should always update trainjs for this tutorial.
-  </p>
-</div>
-
 ### A Users resource
 
 In order to make a user profile page, we need to have a user in the database. Happily, this problem has already been solved: in previous post, we created a User record by hand using the console

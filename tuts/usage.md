@@ -6,7 +6,7 @@ next_section: structure
 permalink: /tuts/usage/
 ---
 
-To get started, make a directory for your Trainjs projects and then
+To get started, make a directory for your [trainjs](https://nodeontrain.xyz) projects and then
 run the following command to make the first application:
 
 {% highlight bash %}
@@ -39,7 +39,7 @@ run the following command to make the first application:
 		 run  npm install
 {% endhighlight %}
 
-Trainjs also comes with a built-in development server that will allow you to
+[trainjs](https://nodeontrain.xyz) also comes with a built-in development server that will allow you to
 preview what the generated <a href="http://demo.nodeontrain.xyz" target="_blank">site</a> will look like in your browser locally.
 
 {% highlight bash %}

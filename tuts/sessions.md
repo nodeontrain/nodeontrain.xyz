@@ -9,9 +9,9 @@ permalink: /tuts/sessions/
 The most common techniques for implementing sessions in [trainjs](https://nodeontrain.xyz) involve using cookies, which are small pieces of text placed on the user’s browser.
 
 <div class="note info">
-  <h5>trainjs</h5>
+  <h5><a href="https://nodeontrain.xyz">trainjs</a></h5>
   <p>
-	You should always update trainjs for this tutorial.
+	You should always update <a href="https://nodeontrain.xyz">trainjs</a> for this tutorial.
   </p>
 </div>
 

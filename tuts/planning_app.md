@@ -8,13 +8,6 @@ permalink: /tuts/planning_app/
 
 In this section, we'll generate an application using `scaffold generators`.
 
-<div class="note info">
-  <h5>trainjs</h5>
-  <p>
-	You should always update trainjs for this tutorial.
-  </p>
-</div>
-
 {% highlight bash %}
 ~ $ trainjs new toy_app
 ~ $ cd toy_app

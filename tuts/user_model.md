@@ -6,7 +6,7 @@ next_section: user_validations
 permalink: /tuts/user_model/
 ---
 
-Although the ultimate goal of the previous post is to make a signup page for our site, it would do little good now to accept information for new users: we don’t currently have any place to put it. Thus, the first step in signing up users is to make a data structure to capture and store their information.
+Although the ultimate goal of [the previous post](https://nodeontrain.xyz/tuts/user_signup_first_step/) is to make a signup page for our site, it would do little good now to accept information for new users: we don’t currently have any place to put it. Thus, the first step in signing up users is to make a data structure to capture and store their information.
 
 ### Database migrations
 

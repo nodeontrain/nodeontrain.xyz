@@ -6,7 +6,7 @@ next_section: user_model
 permalink: /tuts/user_signup_first_step/
 ---
 
-As a capstone to our work on the layout and routing, in this section we’ll make a route for the signup page, which will mean creating a second controller along the way.
+As a capstone to our work on [the layout and routing](https://nodeontrain.xyz/tuts/layout_links/), in this section we’ll make a route for the signup page, which will mean creating a second controller along the way.
 
 ### Users controller
 
@@ -47,7 +47,7 @@ which should currently pass
 
 ### Signup URL
 
-We already have a working page for new users at /users/new, but we want the URL to be /signup instead.
+We already have a working page for new users at `/users/new`, but we want the URL to be `/signup` instead.
 
 {% highlight javascript %}
 $urlRouterProvider.otherwise('/home');

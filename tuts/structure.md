@@ -6,7 +6,7 @@ next_section: planning_app
 permalink: /tuts/structure/
 ---
 
-The directory structure for a newly created Trainjs app:
+The directory structure for a newly created [trainjs](https://nodeontrain.xyz) app:
 
 {% highlight bash %}
 .

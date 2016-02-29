@@ -6,23 +6,23 @@ next_section: usage
 permalink: /tuts/installation/
 ---
 
-Getting Trainjs installed and ready-to-go should only take a few minutes. If it
+Getting [trainjs](https://nodeontrain.xyz) installed and ready-to-go should only take a few minutes. If it
 ever becomes a pain in the ass, please [file an
 issue](https://github.com/nodeontrain/trainjs/issues/new) (or submit a pull request)
 describing the issue you encountered and how we might make the process easier.
 
 ### Requirements
 
-Installing Trainjs is easy and straight-forward, but there are a few requirements
+Installing [trainjs](https://nodeontrain.xyz) is easy and straight-forward, but there are a few requirements
 you’ll need to make sure your system has before you start.
 
 - [Node.js 5.x](http://nodejs.org)
 - Linux, Unix, Mac OS X, or Windows
 
 <div class="note info">
-  <h5>Running Trainjs on Linux</h5>
+  <h5>Running <a href="https://nodeontrain.xyz">trainjs</a> on Linux</h5>
   <p>
-	Trainjs can run on multiple platforms, but the official
+	<a href="https://nodeontrain.xyz">trainjs</a> can run on multiple platforms, but the official
 	tutorial only support installation on Linux platforms.
   </p>
 </div>
@@ -39,7 +39,7 @@ At the terminal prompt, simply run the following commands to install Node.js:
 You can read [this guide](https://github.com/nodesource/distributions)
 to install Node.js on other platforms.
 
-## Install and Trainjs
+## Install [trainjs](https://nodeontrain.xyz)
 
 You can do this more easily by using [npm](https://npmjs.org):
 

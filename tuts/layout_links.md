@@ -2,7 +2,7 @@
 layout: tuts
 title: Layout links
 prev_section: some_structure
-next_section: history
+next_section: user_signup_first_step
 permalink: /tuts/layout_links/
 ---
 
@@ -12,7 +12,7 @@ Now that we’ve finished a site layout with decent styling, it’s time to star
 <a href="/static_pages/about">About</a>
 {% endhighlight %}
 
-but that isn’t the AngularUI. For one, it would be nice if the URL for the about page were /about rather than /static_pages/about. Moreover, AngularUI conventionally uses `ui-sref` and state name, which involves code like
+but that isn’t the AngularUI. For one, it would be nice if the URL for the about page were `/about` rather than `/static_pages/about`. Moreover, AngularUI conventionally uses `ui-sref` and state name, which involves code like
 
 {% highlight html %}
 <a href ui-sref="about">About</a>
@@ -243,7 +243,7 @@ We’ll start in the header partial, `public/partials/layouts/_header.html`, whi
 </div>
 {% endhighlight %}
 
-The other place with links is the footer partial, _footer.html.erb, which has links for the About and Contact pages
+The other place with links is the footer `public/partials/layouts/_footer.html.erb`, which has links for the About and Contact pages
 
 {% highlight html %}
 <small>

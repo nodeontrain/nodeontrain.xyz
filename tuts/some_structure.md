@@ -2,18 +2,11 @@
 layout: tuts
 title: Adding some structure
 prev_section: dynamic_pages
-next_section: history
+next_section: layout_links
 permalink: /tuts/some_structure/
 ---
 
 In this section we’ll add some structure to the layout and give it some minimal styling with CSS.
-
-<div class="note info">
-  <h5>trainjs</h5>
-  <p>
-	You should always update trainjs for this tutorial.
-  </p>
-</div>
 
 ### Site navigation
 
