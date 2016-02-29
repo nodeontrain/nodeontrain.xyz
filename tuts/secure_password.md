@@ -79,11 +79,17 @@ User.beforeCreate(function(user, options, callback) {
 		throw new Error("Password confirmation doesn't match Password");
 	}
 	user.email = user.email.toLowerCase();
-	hasSecurePassword(user, options, callback);
+	if (user.password)
+		hasSecurePassword(user, options, callback);
+	else
+		return callback(null, options);
 })
 User.beforeUpdate(function(user, options, callback) {
 	user.email = user.email.toLowerCase();
-	hasSecurePassword(user, options, callback);
+	if (user.password)
+		hasSecurePassword(user, options, callback);
+	else
+		return callback(null, options);
 })
 
 module.exports = User;

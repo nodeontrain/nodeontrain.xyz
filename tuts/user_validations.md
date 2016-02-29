@@ -493,6 +493,8 @@ it('email addresses should be unique', function(done) {
 
 We can get the new test to pass by adding `unique: true` to the `indexes` option
 
+`app/models/user.js`
+
 {% highlight javascript %}
 var Sequelize = require('sequelize');
 var sequelize = CONFIG.database;

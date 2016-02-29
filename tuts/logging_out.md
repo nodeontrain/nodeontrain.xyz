@@ -16,7 +16,7 @@ module.exports = {
 		req.session.user_id = user.id;
 	},
 	current_user: function(req) {
-		return ModelSync( User.findById(req.session.user_id, {raw: true}) );
+		return ModelSync( User.findById(req.session.user_id) );
 	},
 	log_out: function(req) {
 		delete req.session.user_id;

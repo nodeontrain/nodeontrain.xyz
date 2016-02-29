@@ -27,8 +27,8 @@ app.use(bodyParser.json());
 
 app.use(session({
 	secret: '1234567890QWERTY', // your secret
-	resave: true,
-	saveUninitialized: false,
+	resave: false,
+	saveUninitialized: true,
 }));
 
 module.exports = app;
@@ -108,7 +108,7 @@ module.exports = {
 		req.session.user_id = user.id;
 	},
 	current_user: function(req) {
-		return ModelSync( User.findById(req.session.user_id, {raw: true}) );
+		return ModelSync( User.findById(req.session.user_id) );
 	}
 };
 {% endhighlight %}
@@ -132,13 +132,13 @@ sampleApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvide
 			current_user: ['$q', '$rootScope', 'Sessions', function($q, $rootScope, Sessions){
 				var deferred = $q.defer();
 				Sessions.get({}, function(session) {
-					if ( session.current_user ) {
+					if (session.id) {
 						$rootScope.logged_in = true;
 					} else {
 						$rootScope.logged_in = false;
 					}
-					$rootScope.current_user = session.current_user;
-					deferred.resolve(session.current_user);
+					$rootScope.current_user = session;
+					deferred.resolve(session);
 				}, function(error) {
 					deferred.resolve(null);
 				});
@@ -214,9 +214,7 @@ function SessionsController() {
 	this.destroy = function(req, res, next) {
 	};
 	this.current_user = function(req, res, next) {
-		res.end(JSON.stringify({
-			current_user: sessionHelper.current_user(req)
-		}));
+		res.end(JSON.stringify( sessionHelper.current_user(req) ));
 	};
 }
 
