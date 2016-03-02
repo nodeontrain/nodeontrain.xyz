@@ -10,6 +10,18 @@ var cb = function () {
 	l2.href = 'https://fonts.googleapis.com/css?family=Arizonia';
 	var h2 = document.getElementsByTagName('head')[0];
 	h2.parentNode.insertBefore(l2, h2);
+
+	var l3 = document.createElement('link');
+	l3.rel = 'stylesheet';
+	l3.href = '/css/style.css';
+	var h3 = document.getElementsByTagName('head')[0];
+	h3.parentNode.insertBefore(l3, h3);
+
+	var l4 = document.createElement('link');
+	l4.rel = 'stylesheet';
+	l4.href = '/css/syntax.css';
+	var h4 = document.getElementsByTagName('head')[0];
+	h4.parentNode.insertBefore(l4, h4);
 };
 var raf = requestAnimationFrame || mozRequestAnimationFrame ||
 	webkitRequestAnimationFrame || msRequestAnimationFrame;
