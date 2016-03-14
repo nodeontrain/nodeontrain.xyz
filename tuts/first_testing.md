@@ -19,6 +19,8 @@ static_pages_controller_test.js
 
 The default tests for the staticPages controller
 
+`public/test/e2e_test/controllers/static_pages_controller_test.js`
+
 {% highlight javascript %}
 describe('staticPagesControllerTest', function() {
 
@@ -55,6 +57,8 @@ As required, initially our test suite is passing.
 ### Failing test
 
 Our first step is to write a failing test for the About page.
+
+`public/test/e2e_test/controllers/static_pages_controller_test.js`
 
 {% highlight javascript %}
 describe('staticPagesControllerTest', function() {

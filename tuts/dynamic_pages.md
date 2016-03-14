@@ -61,6 +61,8 @@ The (mostly) static pages for the sample app:
 
 We’ll write simple tests for each of the titles
 
+`public/test/e2e_test/controllers/static_pages_controller_test.js`
+
 {% highlight javascript %}
 describe('staticPagesControllerTest', function() {
 

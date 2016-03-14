@@ -79,13 +79,15 @@ var sessionsController = angular.module('sessionsController', []);
 
 sessionsController.controller(
 	'SessionsNewCtrl',
-	['$scope', '$state', 'Sessions', 'flashHelper', function ($scope, $state, Sessions, flashHelper) {
+	['$scope', '$state', 'Sessions', 'flashHelper', '$rootScope', function ($scope, $state, Sessions, flashHelper, $rootScope) {
 		...
 		$scope.login = function() {
 			Sessions.create($scope.user, function(user){
 				if ( user.error ) {
 					flashHelper.set({type: "danger", content: user.error}, true);
 				} else {
+					$rootScope.logged_in = true;
+					$rootScope.current_user = user;
 					$state.transitionTo('user_detail', {id: user.id}, {
 						reload: true, inherit: false, notify: true
 					});
@@ -146,36 +148,19 @@ sampleApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvide
 			}]
 		}
 	})
-	.state('login', {
-		parent: 'logged_in',
-		...
-	})
-	.state('signup', {
-		parent: 'logged_in',
-		...
-	})
-	.state('help', {
-		parent: 'logged_in',
-		...
-	})
-	.state('home', {
-		parent: 'logged_in',
-		...
-	})
-	.state('about', {
-		parent: 'logged_in',
-		...
-	})
-	.state('contact', {
-		parent: 'logged_in',
-		...
-	})
-	.state('user_detail', {
-		parent: 'logged_in',
-		...
-	})
+	...
 }]);
 ...
+sampleApp.run(['$rootScope', 'Sessions', function($rootScope, Sessions) {
+	Sessions.get({}).$promise.then(function(session) {
+		if (session.id) {
+			$rootScope.logged_in = true;
+		} else {
+			$rootScope.logged_in = false;
+		}
+		$rootScope.current_user = session;
+	});
+}]);
 {% endhighlight %}
 
 `public/services/user.js`

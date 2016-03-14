@@ -205,8 +205,8 @@ describe('UsersEditTest', function() {
 		element(by.css('[name="password_confirmation"]')).sendKeys('bar');
 		element(by.css('[name="commit"]')).click();
 		expect( element.all(by.css('.has-error')).count() ).toEqual(3);
-	});
-});
+	})
+})
 {% endhighlight %}
 
 At this point, the test suite should still be successful
@@ -234,8 +234,8 @@ describe('UsersEditTest', function() {
 		element(by.css('[name="password_confirmation"]')).clear('');
 		element(by.css('[name="commit"]')).click();
 		expect(browser.getCurrentUrl()).not.toEqual(current_url);
-	});
-});
+	})
+})
 {% endhighlight %}
 
 `public/controllers/users_controller.js`

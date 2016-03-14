@@ -49,8 +49,10 @@ sampleApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvide
 	.state('logout', {
 		url: '/logout',
 		resolve: {
-			logout: ['$state', 'Sessions', 'flashHelper', function($state, Sessions, flashHelper){
+			logout: ['$state', 'Sessions', 'flashHelper', '$rootScope', function($state, Sessions, flashHelper, $rootScope){
 				Sessions.delete({}, function() {
+					$rootScope.logged_in = false;
+					$rootScope.current_user = null;
 					$state.transitionTo('home', {}, {
 						reload: true, inherit: false, notify: true
 					});

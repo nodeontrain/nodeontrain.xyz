@@ -8,13 +8,6 @@ permalink: /tuts/remember_me/
 
 The login system we finished in ['Logging in' section](https://nodeontrain.xyz/tuts/logging_in/) is self-contained and fully functional, but most websites have the additional capability of remembering users’ sessions even after they close their browsers. In this section, we’ll start by remembering user logins by default, expiring their sessions only when they explicitly log out.
 
-<div class="note info">
-  <h5><a href="https://nodeontrain.xyz">trainjs</a></h5>
-  <p>
-	You should always update <a href="https://nodeontrain.xyz">trainjs</a> for this tutorial.
-  </p>
-</div>
-
 ### Remember token and digest
 
 In this section, we’ll take the first step toward persistent sessions by generating a remember token appropriate for creating permanent cookies together with a secure remember digest for authenticating those tokens.
