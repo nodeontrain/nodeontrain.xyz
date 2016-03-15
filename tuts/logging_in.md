@@ -79,15 +79,13 @@ var sessionsController = angular.module('sessionsController', []);
 
 sessionsController.controller(
 	'SessionsNewCtrl',
-	['$scope', '$state', 'Sessions', 'flashHelper', '$rootScope', function ($scope, $state, Sessions, flashHelper, $rootScope) {
+	['$scope', '$state', 'Sessions', 'flashHelper', function ($scope, $state, Sessions, flashHelper) {
 		...
 		$scope.login = function() {
 			Sessions.create($scope.user, function(user){
 				if ( user.error ) {
 					flashHelper.set({type: "danger", content: user.error}, true);
 				} else {
-					$rootScope.logged_in = true;
-					$rootScope.current_user = user;
 					$state.transitionTo('user_detail', {id: user.id}, {
 						reload: true, inherit: false, notify: true
 					});
@@ -119,37 +117,9 @@ module.exports = {
 
 The first practical application of logging in involves changing the layout links based on login status. The way to change the links in the site layout involves using an if-else statement inside embedded Angular to show one set of links if the user is logged in and another set of links otherwise.
 
-This kind of code requires the existence of a logged_in state, which we’ll now define.
-
 `public/app.js`
 
 {% highlight javascript %}
-...
-sampleApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-	$urlRouterProvider.otherwise('/home');
-	$stateProvider
-	.state('logged_in', {
-		template: '<ui-view/>',
-		resolve: {
-			current_user: ['$q', '$rootScope', 'Sessions', function($q, $rootScope, Sessions){
-				var deferred = $q.defer();
-				Sessions.get({}, function(session) {
-					if (session.id) {
-						$rootScope.logged_in = true;
-					} else {
-						$rootScope.logged_in = false;
-					}
-					$rootScope.current_user = session;
-					deferred.resolve(session);
-				}, function(error) {
-					deferred.resolve(null);
-				});
-				return deferred.promise;
-			}]
-		}
-	})
-	...
-}]);
 ...
 sampleApp.run(['$rootScope', 'Sessions', function($rootScope, Sessions) {
 	Sessions.get({}).$promise.then(function(session) {
@@ -161,6 +131,34 @@ sampleApp.run(['$rootScope', 'Sessions', function($rootScope, Sessions) {
 		$rootScope.current_user = session;
 	});
 }]);
+{% endhighlight %}
+
+`public/controllers/sessions_controller.js`
+
+{% highlight javascript %}
+'use strict';
+
+var sessionsController = angular.module('sessionsController', []);
+
+sessionsController.controller(
+	'SessionsNewCtrl',
+	['$scope', '$state', 'Sessions', 'flashHelper', '$rootScope', function ($scope, $state, Sessions, flashHelper, $rootScope) {
+		...
+		$scope.login = function() {
+			Sessions.create($scope.user, function(user){
+				if ( user.error ) {
+					flashHelper.set({type: "danger", content: user.error}, true);
+				} else {
+					$rootScope.logged_in = true;
+					$rootScope.current_user = user;
+					$state.transitionTo('user_detail', {id: user.id}, {
+						reload: true, inherit: false, notify: true
+					});
+				}
+			});
+		};
+	}]
+);
 {% endhighlight %}
 
 `public/services/user.js`

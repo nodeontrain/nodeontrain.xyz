@@ -42,134 +42,39 @@ module.exports = UsersController;
 
 {% highlight javascript %}
 ...
+var current_user = ['$q', '$rootScope', 'Sessions', '$state', 'flashHelper', function($q, $rootScope, Sessions, $state, flashHelper){
+	var deferred = $q.defer();
+	Sessions.get({}).$promise.then(function(session) {
+		if (session.id) {
+			$rootScope.logged_in = true;
+			$rootScope.current_user = session;
+			deferred.resolve(session);
+		} else {
+			$rootScope.logged_in = false;
+			$rootScope.current_user = null;
+			flashHelper.set({type: "danger", content: "Please log in."});
+			$state.transitionTo('login', {}, {
+				reload: true, inherit: false, notify: true
+			});
+		}
+	});
+	return deferred.promise;
+}];
+
 sampleApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 	$urlRouterProvider.otherwise('/home');
 	$stateProvider
-	.state('logged_in', {
-		template: '<ui-view/>',
-		resolve: {
-			current_user: ['$q', '$rootScope', 'Sessions', '$state', 'flashHelper', function($q, $rootScope, Sessions, $state, flashHelper){
-				var deferred = $q.defer();
-				Sessions.get({}).$promise.then(function(session) {
-					if (session.id) {
-						$rootScope.logged_in = true;
-						$rootScope.current_user = session;
-						deferred.resolve(session);
-					} else {
-						$rootScope.logged_in = false;
-						$rootScope.current_user = null;
-						flashHelper.set({type: "danger", content: "Please log in."});
-						$state.transitionTo('login', {}, {
-							reload: true, inherit: false, notify: true
-						});
-					}
-				});
-				return deferred.promise;
-			}]
-		}
-	})
-	.state('login', {
-		url: '/login',
-		templateUrl: 'partials/sessions/new.html',
-		controller: 'SessionsNewCtrl',
-		data: {
-			title: 'Login'
-		}
-	})
-	.state('logout', {
-		url: '/logout',
-		resolve: {
-			logout: ['$state', 'Sessions', 'flashHelper', '$rootScope', function($state, Sessions, flashHelper, $rootScope){
-				Sessions.delete({}, function() {
-					$rootScope.logged_in = false;
-					$rootScope.current_user = null;
-					$state.transitionTo('home', {}, {
-						reload: true, inherit: false, notify: true
-					});
-				}, function(error) {
-					flashHelper.set({type: "danger", content: error.statusText});
-					$state.transitionTo('home', {}, {
-						reload: true, inherit: false, notify: true
-					});
-				});
-			}]
-		}
-	})
-	.state('signup', {
-		url: '/signup',
-		templateUrl: 'partials/users/new.html',
-		controller: 'UsersNewCtrl',
-		data: {
-			title: 'Sign up'
-		}
-	})
-	.state('help', {
-		url: '/help',
-		templateUrl: 'partials/static_pages/help.html',
-		controller: 'StaticPagesHelpCtrl',
-		data: {
-			title: 'Help'
-		}
-	})
-	.state('home', {
-		url: '/home',
-		templateUrl: 'partials/static_pages/home.html',
-		controller: 'StaticPagesHomeCtrl',
-		data: {
-			title: 'Home'
-		}
-	})
-	.state('about', {
-		url: '/about',
-		templateUrl: 'partials/static_pages/about.html',
-		controller: 'StaticPagesAboutCtrl',
-		data: {
-			title: 'About'
-		}
-	})
-	.state('contact', {
-		url: '/contact',
-		templateUrl: 'partials/static_pages/contact.html',
-		controller: 'StaticPagesContactCtrl',
-		data: {
-			title: 'Contact'
-		}
-	})
-	.state('user_detail', {
-		url: '/users/:id',
-		templateUrl: 'partials/users/show.html',
-		resolve: {
-			user: ['$q', '$stateParams', 'User', function($q, $stateParams, User){
-				var deferred = $q.defer();
-				User.get({id: $stateParams.id}, function(user) {
-					deferred.resolve(user);
-				}, function(error) {
-					deferred.reject();
-				});
-				return deferred.promise;
-			}]
-		},
-		controller: 'UsersDetailCtrl'
-	})
+	...
 	.state('user_edit', {
 		url: '/users/:id/edit',
 		templateUrl: 'partials/users/edit.html',
 		controller: 'UsersEditCtrl',
 		resolve: {
-			user: ['$q', '$stateParams', 'User', function($q, $stateParams, User){
-				var deferred = $q.defer();
-				User.get({id: $stateParams.id}, function(user) {
-					deferred.resolve(user);
-				}, function(error) {
-					deferred.reject();
-				});
-				return deferred.promise;
-			}]
+			user: current_user
 		},
 		data: {
 			title: 'Edit user'
-		},
-		parent: 'logged_in'
+		}
 	})
 }]);
 ...
@@ -323,7 +228,7 @@ describe('usersControllerTest', function() {
 		browser.executeAsyncScript(function(callback) {
 			var $injector = angular.injector([ 'userService' ]);
 			var User = $injector.get( 'User' );
-			User.update({id: 1, email: 'thanh@info'}, function(user){
+			User.update({id: 1, name: 'Foo'}, function(user){
 				callback(user);
 			}, function(error){
 				callback(error);
@@ -368,20 +273,31 @@ module.exports = UsersController;
 
 {% highlight javascript %}
 ...
-sampleApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-	$urlRouterProvider.otherwise('/home');
-	$stateProvider
-	...
-	.state('user_edit', {
-		url: '/users/:id/edit',
-		templateUrl: 'partials/users/edit.html',
-		controller: 'UsersEditCtrl',
-		data: {
-			title: 'Edit user'
-		},
-		parent: 'logged_in'
-	})
-}]);
+var current_user = ['$q', '$rootScope', 'Sessions', '$state', 'flashHelper', 'sessionHelper', '$stateParams', function($q, $rootScope, Sessions, $state, flashHelper, sessionHelper, $stateParams){
+	var deferred = $q.defer();
+	Sessions.get({}).$promise.then(function(session) {
+		if (session.id) {
+			$rootScope.logged_in = true;
+			$rootScope.current_user = session;
+			if ( $state.next.name == 'user_edit' && $stateParams.id.toString() != session.id ) {
+				flashHelper.set({type: "danger", content: "Please log in."});
+				$state.transitionTo('login', {}, {
+					reload: true, inherit: false, notify: true
+				});
+			} else {
+				deferred.resolve(session);
+			}
+		} else {
+			$rootScope.logged_in = false;
+			$rootScope.current_user = null;
+			flashHelper.set({type: "danger", content: "Please log in."});
+			$state.transitionTo('login', {}, {
+				reload: true, inherit: false, notify: true
+			});
+		}
+	});
+	return deferred.promise;
+}];
 ...
 {% endhighlight %}
 
@@ -391,8 +307,7 @@ sampleApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvide
 ...
 usersController.controller(
 	'UsersEditCtrl',
-	['$scope', 'User', '$q', '$state', 'flashHelper', 'current_user', function ($scope, User, $q, $state, flashHelper, current_user) {
-		$scope.user = current_user;
+	['$scope', 'User', '$q', '$state', 'flashHelper', 'user', function ($scope, User, $q, $state, flashHelper, user) {
 		...
 		$scope.saveUser = function() {
 			User.update($scope.user, function(user){
@@ -446,7 +361,7 @@ describe('UsersEditTest', function() {
 
 		element(by.css('[name="name"]')).clear('');
 		element(by.css('[name="email"]')).clear('');
-		element(by.css('[name="name"]')).sendKeys('Rails Tutorial');
+		element(by.css('[name="name"]')).sendKeys('Rails Tutorial ' + new Date().getTime());
 		element(by.css('[name="email"]')).sendKeys('example@railstutorial.org');
 		element(by.css('[name="password"]')).clear('');
 		element(by.css('[name="password_confirmation"]')).clear('');
@@ -533,32 +448,33 @@ To make use of `store_location`, we need to add it to the `logged_in` state
 
 {% highlight javascript %}
 ...
-$urlRouterProvider.otherwise('/home');
-$stateProvider
-.state('logged_in', {
-	template: '<ui-view/>',
-	resolve: {
-		current_user: ['$q', '$rootScope', 'Sessions', '$state', 'flashHelper', 'sessionHelper', function($q, $rootScope, Sessions, $state, flashHelper, sessionHelper){
-			var deferred = $q.defer();
-			Sessions.get({}).$promise.then(function(session) {
-				if (session.id) {
-					$rootScope.logged_in = true;
-					$rootScope.current_user = session;
-					deferred.resolve(session);
-				} else {
-					$rootScope.logged_in = false;
-					$rootScope.current_user = null;
-					sessionHelper.store_location();
-					flashHelper.set({type: "danger", content: "Please log in."});
-					$state.transitionTo('login', {}, {
-						reload: true, inherit: false, notify: true
-					});
-				}
+var current_user = ['$q', '$rootScope', 'Sessions', '$state', 'flashHelper', 'sessionHelper', '$stateParams', function($q, $rootScope, Sessions, $state, flashHelper, sessionHelper, $stateParams){
+	var deferred = $q.defer();
+	Sessions.get({}).$promise.then(function(session) {
+		if (session.id) {
+			$rootScope.logged_in = true;
+			$rootScope.current_user = session;
+			if ( $state.next.name == 'user_edit' && $stateParams.id.toString() != session.id ) {
+				sessionHelper.store_location();
+				flashHelper.set({type: "danger", content: "Please log in."});
+				$state.transitionTo('login', {}, {
+					reload: true, inherit: false, notify: true
+				});
+			} else {
+				deferred.resolve(session);
+			}
+		} else {
+			$rootScope.logged_in = false;
+			$rootScope.current_user = null;
+			sessionHelper.store_location();
+			flashHelper.set({type: "danger", content: "Please log in."});
+			$state.transitionTo('login', {}, {
+				reload: true, inherit: false, notify: true
 			});
-			return deferred.promise;
-		}]
-	}
-})
+		}
+	});
+	return deferred.promise;
+}];
 ...
 {% endhighlight %}
 

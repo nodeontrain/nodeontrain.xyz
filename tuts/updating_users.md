@@ -37,8 +37,7 @@ We start with the `user_edit` state, which requires pulling the relevant user ou
 	controller: 'UsersEditCtrl',
 	data: {
 		title: 'Edit user'
-	},
-	parent: 'logged_in'
+	}
 })
 
 ...
