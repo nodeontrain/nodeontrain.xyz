@@ -8,13 +8,6 @@ permalink: /tuts/authorization/
 
 In the context of web applications, authentication allows us to identify users of our site, and authorization lets us control what they can do.
 
-<div class="note info">
-  <h5><a href="https://nodeontrain.xyz">trainjs</a></h5>
-  <p>
-	You should always update <a href="https://nodeontrain.xyz">trainjs</a> for this tutorial.
-  </p>
-</div>
-
 ### Requiring logged-in users
 
 To implement the forwarding behavior, we’ll use a before filter in the Users controller.
@@ -351,14 +344,15 @@ describe('UsersEditTest', function() {
 	it('successful edit with friendly forwarding', function() {
 		var current_url = 'http://localhost:1337/#/users/1/edit';
 		browser.get(current_url);
+
+		expect( browser.getCurrentUrl() ).toContain('#/login');
 		element(by.css('[name="email"]')).clear('');
 		element(by.css('[name="password"]')).clear('');
 		element(by.css('[name="email"]')).sendKeys('example@railstutorial.org');
 		element(by.css('[name="password"]')).sendKeys('123456');
 		element(by.css('[name="commit"]')).click();
 
-		expect( browser.getCurrentUrl() ).toContain('#/users/');
-
+		expect( browser.getCurrentUrl() ).toContain('#/users');
 		element(by.css('[name="name"]')).clear('');
 		element(by.css('[name="email"]')).clear('');
 		element(by.css('[name="name"]')).sendKeys('Rails Tutorial ' + new Date().getTime());
@@ -366,7 +360,7 @@ describe('UsersEditTest', function() {
 		element(by.css('[name="password"]')).clear('');
 		element(by.css('[name="password_confirmation"]')).clear('');
 		element(by.css('[name="commit"]')).click();
-		expect(browser.getCurrentUrl()).not.toEqual(current_url);
+		expect( element.all(by.css('.alert-success')).count() ).toEqual(1);
 	})
 
 	it('unsuccessful edit', function() {
