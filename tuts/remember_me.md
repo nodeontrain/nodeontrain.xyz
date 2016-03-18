@@ -68,6 +68,9 @@ var User = sequelize.define('user', {
 	},
 	remember_digest: {
 		type: Sequelize.STRING
+	},
+	remember_token: {
+		type: Sequelize.VIRTUAL
 	}
 }, {
 	...
