@@ -5,6 +5,8 @@ permalink: /tuts/history/
 prev_section: status_feed
 ---
 
+## 2.0.30 / 2016-03-21
+- Refactor trainjs routing
 
 ## 2.0.21 / 2016-01-23
 - Fix `controllers is not defined` ([#13](https://github.com/nodeontrain/trainjs/issues/13))

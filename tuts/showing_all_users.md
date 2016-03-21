@@ -8,13 +8,6 @@ permalink: /tuts/showing_all_users/
 
 In this section, we’ll add the index action, which is designed to display all the users instead of just one. Along the way, we’ll learn how to seed the database with sample users and how to paginate the user output so that the index page can scale up to display a potentially large number of users.
 
-<div class="note info">
-  <h5><a href="https://nodeontrain.xyz">trainjs</a></h5>
-  <p>
-	You should always update <a href="https://nodeontrain.xyz">trainjs</a> for this tutorial.
-  </p>
-</div>
-
 ### Users index
 
 To get started with the users index, we’ll first implement a security model. Although we’ll keep individual user `show` pages visible to all site visitors, the user `index` will be restricted to logged-in users so that there’s a limit to how much unregistered users can see by default.
