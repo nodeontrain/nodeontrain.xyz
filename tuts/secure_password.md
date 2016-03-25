@@ -235,7 +235,7 @@ describe('UserTest', function () {
 });
 {% endhighlight %}
 
-You may be able to guess the code for enforcing a minimum length constraint by referring to the corresponding maximum validation
+You may be able to guess the code for enforcing a minimum length constraint by referring to the corresponding maximum validation  for the user’s name
 
 `app/models/user.js`
 
@@ -289,7 +289,7 @@ At this point, the tests should be successful
 
 ### Creating and authenticating a user
 
-Now that the basic User model is complete, we’ll create a user in the database
+Now that the basic User model is complete, we’ll create a user in the database as preparation for making a page to show the user’s information in ["Showing users" Section](https://nodeontrain.xyz/tuts/showing_users/).
 
 {% highlight javascript %}
 > require('trainjs').initServer()

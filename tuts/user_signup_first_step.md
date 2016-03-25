@@ -6,11 +6,11 @@ next_section: user_model
 permalink: /tuts/user_signup_first_step/
 ---
 
-As a capstone to our work on [the layout and routing](https://nodeontrain.xyz/tuts/layout_links/), in this section we’ll make a route for the signup page, which will mean creating a second controller along the way.
+As a capstone to our work on [the layout and routing](https://nodeontrain.xyz/tuts/layout_links/), in this section we’ll make a route for the signup page, which will mean creating a second controller along the way. This is a first important step toward allowing users to register for our site; we’ll take the next step, modeling users, in ["Modeling users" Chapter](https://nodeontrain.xyz/tuts/user_model/), and we’ll finish the job in ["Sign up" Chapter](https://nodeontrain.xyz/tuts/showing_users/).
 
 ### Users controller
 
-We created our first controller, the Static Pages controller. It’s time to create a second one, the Users controller.
+We created our first controller, the Static Pages controller, in ["Static pages" Section](https://nodeontrain.xyz/tuts/static_pages/). It’s time to create a second one, the Users controller.
 
 {% highlight bash %}
 ~/sample_app $ trainjs generate controller Users new

@@ -6,7 +6,7 @@ next_section: showing_all_users
 permalink: /tuts/authorization/
 ---
 
-In the context of web applications, authentication allows us to identify users of our site, and authorization lets us control what they can do.
+In the context of web applications, authentication allows us to identify users of our site, and authorization lets us control what they can do. One nice effect of building the authentication machinery in ["Log in & Log out" Chapter](https://nodeontrain.xyz/tuts/sessions/) is that we are now in a position to implement authorization as well.
 
 ### Requiring logged-in users
 

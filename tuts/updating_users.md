@@ -6,7 +6,7 @@ next_section: authorization
 permalink: /tuts/updating_users/
 ---
 
-The pattern for editing user information closely parallels that for [creating new users](https://nodeontrain.xyz/tuts/successful_signups). Instead of a new action rendering a view for new users, we have an edit action rendering a view to edit users; instead of create responding to a `POST` request, we have an update action responding to a `PUT` request
+The pattern for editing user information closely parallels that for [creating new users](https://nodeontrain.xyz/tuts/successful_signups). Instead of a new action rendering a view for new users, we have an edit action rendering a view to edit users; instead of create responding to a `POST` request, we have an update action responding to a `PUT` request. The biggest difference is that, while anyone can sign up, only the current user should be able to update their information. The authentication machinery from ["Log in & Log out" Chapter](https://nodeontrain.xyz/tuts/sessions/) will allow us to use a before filter to ensure that this is the case.
 
 ### Edit form
 

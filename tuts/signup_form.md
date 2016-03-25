@@ -7,7 +7,7 @@ permalink: /tuts/signup_form/
 ---
 
 Now that we have a working (though not yet complete) [user profile page](https://nodeontrain.xyz/tuts/showing_users), we’re ready to make a signup form for our site.
-Since we’re about to add the ability to create new users through the web, let’s remove the user created at the console
+Since we’re about to add the ability to create new users through the web, let’s remove the user created at the console in ["Adding a secure password" Section](https://nodeontrain.xyz/tuts/secure_password/#creating-and-authenticating-a-user).
 
 {% highlight bash %}
 ~/sample_app $ rm -f db/development.sqlite3

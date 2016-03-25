@@ -28,7 +28,7 @@ using `trainjs generate scaffold`
 	   create  public/services/micropost.js
 {% endhighlight %}
 
-To update our database with the new data model, we need to run a migration
+To update our database with the new data model, we need to run a migration as in ["The Users resource" Section](https://nodeontrain.xyz/tuts/users_resource/)
 
 {% highlight bash %}
 ~/toy_app $ sequelize db:migrate
@@ -40,7 +40,7 @@ Starting 'db:migrate'...
 == 20151229221845_create_microposts: migrated (0.256s)
 {% endhighlight %}
 
-The [trainjs](https://nodeontrain.xyz) routes, with a new rule for Microposts resources.
+Now we are in a position to create microposts in the same way we created users in ["The Users resource" Section](https://nodeontrain.xyz/tuts/users_resource/). As you might guess, the scaffold generator has updated the [trainjs](https://nodeontrain.xyz) routes file with a rule for Microposts resource
 
 {% highlight javascript %}
 module.exports = [

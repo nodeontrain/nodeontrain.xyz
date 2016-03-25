@@ -6,9 +6,9 @@ next_section: secure_password
 permalink: /tuts/user_validations/
 ---
 
-The User model we created now has working name and email attributes, but they are completely generic: any string (including an empty one) is currently valid in either case. And yet, names and email addresses are more specific than this. For example, name should be non-blank, and email should match the specific format characteristic of email addresses.
+The User model we created in ["User model" Section](https://nodeontrain.xyz/tuts/user_model/) now has working name and email attributes, but they are completely generic: any string (including an empty one) is currently valid in either case. And yet, names and email addresses are more specific than this. For example, name should be non-blank, and email should match the specific format characteristic of email addresses.
 
-In short, we shouldn’t allow name and email to be just any strings; we should enforce certain constraints on their values.
+In short, we shouldn’t allow name and email to be just any strings; we should enforce certain constraints on their values. In this section, we’ll cover several of the most common cases, validating presence, length, format and uniqueness. In ["Adding a secure password" Section](https://nodeontrain.xyz/tuts/secure_password/#user-has-secure-password) we’ll add a final common validation, confirmation. And we’ll see in ["Unsuccessful signups" Section](https://nodeontrain.xyz/tuts/unsuccessful_signups/) how validations give us convenient error messages when users make submissions that violate them.
 
 ### A validity test
 
@@ -552,7 +552,8 @@ There’s just one small problem, which is that the uniqueness validation does n
 
 Luckily, the solution is straightforward to implement: we just need to enforce uniqueness at the database level as well as at the model level. Our method is to create a database index on the email column, and then require that the index be unique.
 
-We are adding structure to an existing model, so we need to create a migration directly using the migration generator
+We saw in ["User model" Section](https://nodeontrain.xyz/tuts/user_model/#database-migrations) that generating the User model automatically created a new migration; in the present case, we are adding structure to an existing model, so we need to create a migration directly using the migration generator
+
 {% highlight bash %}
 ~/sample_app $ sequelize migration:create --name add_index_to_users_email
 Loaded configuration file "config/database.json".

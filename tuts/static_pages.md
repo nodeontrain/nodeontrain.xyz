@@ -6,17 +6,17 @@ next_section: first_testing
 permalink: /tuts/static_pages/
 ---
 
-Before getting started we need to create a new project, this time called `sample_app`
+As in ["Planning the application" Section](https://nodeontrain.xyz/tuts/planning_app/), before getting started we need to create a new project, this time called `sample_app`
 
 {% highlight bash %}
 ~ $ trainjs new sample_app
 ~ $ cd sample_app
 {% endhighlight %}
 
-In this section, we’ll take a first step toward making dynamic pages by creating a set of actions and views containing only static HTML. We’ll be working mainly in the public/controllers and public/partials directories.
+With all the preparation from ["Static pages" Section](https://nodeontrain.xyz/tuts/static_pages/) finished, we’re ready to get started developing the sample application. In this section, we’ll take a first step toward making dynamic pages by creating a set of actions and views containing only static HTML. We’ll be working mainly in the `public/controllers` and `public/partials` directories.
 
 ### Generated static pages
-To get started with static pages, we’ll first generate a controller using the `trainjs generate` script
+To get started with static pages, we’ll first generate a controller using the same `trainjs generate` script we used in ["The Users resource" Section](https://nodeontrain.xyz/tuts/users_resource/) to generate scaffolding.
 
 {% highlight bash %}
 ~/sample_app $ trainjs generate controller StaticPages home help

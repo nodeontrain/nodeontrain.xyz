@@ -6,7 +6,7 @@ next_section: deleting_users
 permalink: /tuts/showing_all_users/
 ---
 
-In this section, we’ll add the index action, which is designed to display all the users instead of just one. Along the way, we’ll learn how to seed the database with sample users and how to paginate the user output so that the index page can scale up to display a potentially large number of users.
+In this section, we’ll add the index action, which is designed to display all the users instead of just one. Along the way, we’ll learn how to seed the database with sample users and how to paginate the user output so that the index page can scale up to display a potentially large number of users. In ["Deleting users" Section](https://nodeontrain.xyz/tuts/deleting_users/), we’ll add an administrative interface to the users index so that users can also be destroyed.
 
 ### Users index
 

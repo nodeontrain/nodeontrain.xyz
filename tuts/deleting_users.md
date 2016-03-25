@@ -223,7 +223,7 @@ function UsersController() {
 module.exports = UsersController;
 {% endhighlight %}
 
-We’ll enforce access control using a before filter, this time to restrict access to the destroy action to admins.
+As in ["Authorization" Section](https://nodeontrain.xyz/tuts/authorization/), we’ll enforce access control using a before filter, this time to restrict access to the destroy action to admins.
 
 `app/controllers/users_controller.js`
 

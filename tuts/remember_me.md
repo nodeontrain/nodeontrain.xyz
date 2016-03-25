@@ -10,7 +10,7 @@ The login system we finished in ['Logging in' section](https://nodeontrain.xyz/t
 
 ### Remember token and digest
 
-In this section, we’ll take the first step toward persistent sessions by generating a remember token appropriate for creating permanent cookies together with a secure remember digest for authenticating those tokens.
+In ["Logging in" Section](https://nodeontrain.xyz/tuts/logging_in/), we used the Rails session method to store the user’s id, but this information disappears when the user closes their browser. In this section, we’ll take the first step toward persistent sessions by generating a remember token appropriate for creating permanent cookies together with a secure remember digest for authenticating those tokens.
 
 We’ll start by adding the required `remember_digest` attribute to the User model
 

@@ -6,7 +6,7 @@ next_section: users_resource
 permalink: /tuts/planning_app/
 ---
 
-In this section, we'll generate an application using `scaffold generators`.
+In this section, we’ll outline our plans for the toy application. As in ["Basic Usage" Section](https://nodeontrain.xyz/tuts/usage/), we’ll start by generating the application skeleton using the `trainjs new` command.
 
 {% highlight bash %}
 ~ $ trainjs new toy_app

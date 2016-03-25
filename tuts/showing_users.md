@@ -6,7 +6,7 @@ next_section: signup_form
 permalink: /tuts/showing_users/
 ---
 
-In this section, we’ll take the first steps toward the final profile by making a page to display a user’s name and profile photo
+In this section, we’ll take the first steps toward the final profile by making a page to display a user’s name and profile photo. Our eventual goal for the user profile pages is to show the user’s profile image, basic user data, and a list of microposts. We’ll complete this task, and with it the sample application, in ["Following users" Chapter](https://nodeontrain.xyz/tuts/relationship_model/).
 
 ### A Users resource
 
@@ -27,9 +27,9 @@ In order to make a user profile page, we need to have a user in the database. Ha
 	 ...
 {% endhighlight %}
 
-When following REST principles, resources are typically referenced using the resource name and a unique identifier. What this means in the context of users—which we’re now thinking of as a Users resource—is that we should view the user with id 1 by issuing a GET request to the URL /users/1.
+When following REST principles, resources are typically referenced using the resource name and a unique identifier. What this means in the context of users—which we’re now thinking of as a Users resource—is that we should view the user with id 1 by issuing a GET request to the URL `/users/1`.
 
-We can get the routing for /users/1 to work by running a single command
+We can get the routing for `/users/1` to work by running a single command
 
 {% highlight bash %}
 ~/sample_app $ trainjs generate service User show

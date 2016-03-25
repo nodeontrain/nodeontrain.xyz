@@ -10,7 +10,7 @@ In this section, we’ll create a signup form that accepts an invalid submission
 
 ### A working form
 
-Recall from `Showing users` section that adding `resources: 'users'` to the `config/routes.js` file automatically ensures that our application responds to the RESTful URLs. In particular, it ensures that a POST request to /users is handled by the create action.
+Recall from ["Showing users" Section](https://nodeontrain.xyz/tuts/showing_users/) that adding `resources: 'users'` to the `config/routes.js` file automatically ensures that our application responds to the RESTful URLs. In particular, it ensures that a POST request to /users is handled by the create action.
 
 `public/controllers/users_controller.js`
 

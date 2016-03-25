@@ -6,7 +6,7 @@ next_section: some_structure
 permalink: /tuts/dynamic_pages/
 ---
 
-Our plan is to edit the Home, Help, and About pages to make page titles that change on each page. This will involve using the <title> tag in our page views.
+Our plan is to edit the Home, Help, and About pages to make page titles that change on each page. This will involve using the `<title>` tag in our page views.
 
 The (mostly) static pages for the sample app:
 
