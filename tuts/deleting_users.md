@@ -31,7 +31,8 @@ var URLSafeBase64 = require('urlsafe-base64');
 var User = sequelize.define('user', {
 	...
 	admin: {
-		type: Sequelize.BOOLEAN
+		type: Sequelize.BOOLEAN,
+		defaultValue: false
 	}
 }, {
 	...
