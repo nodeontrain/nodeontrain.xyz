@@ -8,13 +8,6 @@ permalink: /tuts/deleting_users/
 
 Now that the users index is complete, there’s only one canonical REST action left: destroy.
 
-<div class="note info">
-  <h5><a href="https://nodeontrain.xyz">trainjs</a></h5>
-  <p>
-	You should always update <a href="https://nodeontrain.xyz">trainjs</a> for this tutorial.
-  </p>
-</div>
-
 ### Administrative users
 
 We will identify privileged administrative users with a boolean admin attribute in the User model, which will lead automatically to an admin? boolean method to test for admin status.
