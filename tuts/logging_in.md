@@ -252,10 +252,10 @@ To activate the dropdown menu, we need to include Bootstrap’s custom JavaScrip
 
 Having verified by hand that the application is behaving properly upon successful login, before moving on we’ll write an integration test to capture that behavior and catch regressions.
 
-1. Visit the login path.
-2. Post valid information to the sessions path.
-3. Verify that the login link disappears.
-4. Verify that a profile link appears.
+	1. Visit the login path.
+	2. Post valid information to the sessions path.
+	3. Verify that the login link disappears.
+	4. Verify that a profile link appears.
 
 `public/test/e2e_test/integration/users_login_test.js`
 

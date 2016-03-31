@@ -545,10 +545,10 @@ At this point, our application—with an important caveat—enforces email uniqu
 
 There’s just one small problem, which is that the uniqueness validation does not guarantee uniqueness at the database level. Here’s a scenario that explains why:
 
-1. Alice signs up for the sample app, with address alice@wonderland.com.
-2. Alice accidentally clicks on “Submit” twice, sending two requests in quick succession.
-3. The following sequence occurs: request 1 creates a user in memory that passes validation, request 2 does the same, request 1’s user gets saved, request 2’s user gets saved.
-4. Result: two user records with the exact same email address, despite the uniqueness validation
+	1. Alice signs up for the sample app, with address alice@wonderland.com.
+	2. Alice accidentally clicks on “Submit” twice, sending two requests in quick succession.
+	3. The following sequence occurs: request 1 creates a user in memory that passes validation, request 2 does the same, request 1’s user gets saved, request 2’s user gets saved.
+	4. Result: two user records with the exact same email address, despite the uniqueness validation
 
 Luckily, the solution is straightforward to implement: we just need to enforce uniqueness at the database level as well as at the model level. Our method is to create a database index on the email column, and then require that the index be unique.
 
