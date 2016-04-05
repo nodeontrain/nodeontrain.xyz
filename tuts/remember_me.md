@@ -6,7 +6,7 @@ next_section: updating_users
 permalink: /tuts/remember_me/
 ---
 
-The login system we finished in ['Logging in' section](https://nodeontrain.xyz/tuts/logging_in/) is self-contained and fully functional, but most websites have the additional capability of remembering users’ sessions even after they close their browsers. In this section, we’ll start by remembering user logins by default, expiring their sessions only when they explicitly log out.
+The login system we finished in ["Logging in" section](https://nodeontrain.xyz/tuts/logging_in/) is self-contained and fully functional, but most websites have the additional capability of remembering users’ sessions even after they close their browsers. In this section, we’ll start by remembering user logins by default, expiring their sessions only when they explicitly log out.
 
 ### Remember token and digest
 
@@ -89,6 +89,9 @@ var User = sequelize.define('user', {
 });
 
 var hasSecurePassword = function(user, options, callback) {
+	if (user.password != user.password_confirmation) {
+		throw new Error("Password confirmation doesn't match Password");
+	}
 	bcrypt.hash(user.get('password'), 10, function(err, hash) {
 		if (err) return callback(err);
 		user.set('password_digest', hash);
@@ -97,9 +100,6 @@ var hasSecurePassword = function(user, options, callback) {
 };
 
 User.beforeCreate(function(user, options, callback) {
-	if (user.password != user.password_confirmation) {
-		throw new Error("Password confirmation doesn't match Password");
-	}
 	user.email = user.email.toLowerCase();
 	if (user.password)
 		hasSecurePassword(user, options, callback);

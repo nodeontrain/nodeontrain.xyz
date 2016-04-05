@@ -8,13 +8,6 @@ permalink: /tuts/account_activation/
 
 At present, newly registered users immediately have full access to [their accounts](https://nodeontrain.xyz/tuts/successful_signups). In this section, we’ll implement an account activation step to verify that the user controls the email address they used to sign up. This will involve associating an activation token and digest with a user, sending the user an email with a link including the token, and activating the user upon clicking the link.
 
-<div class="note info">
-  <h5><a href="https://nodeontrain.xyz">trainjs</a></h5>
-  <p>
-	You should always update <a href="https://nodeontrain.xyz">trainjs</a> for this tutorial.
-  </p>
-</div>
-
 Our strategy for handling account activation parallels [user login](https://nodeontrain.xyz/tuts/logging_in/) and especially [remembering users](https://nodeontrain.xyz/tuts/logging_in/). The basic sequence appears as follows:
 
 	1. Start users in an “unactivated” state.
@@ -145,6 +138,9 @@ var User = sequelize.define('user', {
 });
 
 var hasSecurePassword = function(user, options, callback) {
+	if (user.password != user.password_confirmation) {
+		throw new Error("Password confirmation doesn't match Password");
+	}
 	bcrypt.hash(user.get('password'), 10, function(err, hash) {
 		if (err) return callback(err);
 		user.set('password_digest', hash);
@@ -153,9 +149,6 @@ var hasSecurePassword = function(user, options, callback) {
 };
 
 User.beforeCreate(function(user, options, callback) {
-	if (user.password != user.password_confirmation) {
-		throw new Error("Password confirmation doesn't match Password");
-	}
 	user.email = user.email.toLowerCase();
 	user.create_activation_digest();
 	if (user.password)
