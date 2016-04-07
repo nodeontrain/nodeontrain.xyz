@@ -168,6 +168,7 @@ A new password reset view.
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
 		<form form-for="password_reset" submit-with="forgotPassword()" validation-rules="validation_rules">
+			<div error-messages ng-if="error_messages" id="error_explanation"></div>
 			<field-label label="Email"></field-label>
 			<text-field attribute="email" type="email"></text-field>
 			<input class="btn btn-primary" name="commit" type="submit" value="Submit" />
@@ -197,8 +198,8 @@ passwordResetsController.controller(
 		};
 		$scope.forgotPassword = function() {
 			PasswordResets.create($scope.password_reset, function(password_reset){
-				if ( password_reset.error ) {
-					flashHelper.set({type: "danger", content: password_reset.error}, true);
+				if ( password_reset.errors ) {
+					$scope.error_messages = password_reset.errors;
 				} else {
 					flashHelper.set({type: "info", content: "Email sent with password reset instructions"});
 					$state.transitionTo('home', {}, {
@@ -221,10 +222,12 @@ function PasswordResetsController() {
 		if (user && !user.errors) {
 			user.create_reset_digest();
 			user.send_password_reset_email();
-			res.end(JSON.stringify(user));
+			res.end(JSON.stringify({
+				errors: user.errors ? user.errors : null
+			}));
 		} else {
 			res.end(JSON.stringify({
-				error: 'Email address not found'
+				errors: [{message: 'Email address not found'}]
 			}));
 		}
 	};
@@ -461,11 +464,13 @@ function PasswordResetsController() {
 		var user = this.get_user(req, res, next);
 		if (user && !user.errors) {
 			user.create_reset_digest();
-			  user.send_password_reset_email();
-			res.end(JSON.stringify(user));
+			user.send_password_reset_email();
+			res.end(JSON.stringify({
+				errors: user.errors ? user.errors : null
+			}));
 		} else {
 			res.end(JSON.stringify({
-				error: 'Email address not found'
+				errors: [{message: 'Email address not found'}]
 			}));
 		}
 	};
@@ -620,7 +625,25 @@ The steps to test password resets broadly parallel the test for [account activat
 `public/test/e2e_test/integration/password_resets_test.js`
 
 {% highlight javascript %}
+require('trainjs').initServer();
+
 describe('PasswordResetsTest', function() {
+	var user = null;
+
+	beforeEach(function(done){
+		var user_number = new Date().getTime();
+		User.create({name: 'Example User', email: 'user-'+user_number+'@example.com', password: 'password', password_confirmation: 'password'}).then(function(new_user){
+			new_user.reset_token = User.new_token();
+			new_user.update({
+				reset_digest: User.digest(new_user.reset_token),
+				reset_sent_at: new Date().getTime()
+			}).then(function(){
+				user = new_user;
+				done();
+			});
+		});
+	});
+
 	it('password resets', function(done) {
 		var current_url = 'http://localhost:1337/#/password_resets/new';
 		browser.get(current_url);
@@ -630,76 +653,59 @@ describe('PasswordResetsTest', function() {
 			element(by.css('[name="email"]')).sendKeys('');
 			element(by.css('[name="commit"]')).click();
 			expect( element.all(by.css('.has-error')).count() ).toEqual(1);
-			browser.executeAsyncScript(function(callback) {
-				var $injector= angular.injector([ 'userService', 'passwordResetsService' ]);
-				var User = $injector.get( 'User' );
-				var user_number = new Date().getTime();
-				var PasswordResets = $injector.get( 'PasswordResets' );
-				User.create({name: 'Example User', email: 'user-'+user_number+'@example.com', password: 'password', password_confirmation: 'password'}, function(new_user){
-					PasswordResets.create({email: new_user.email}, function(user){
-						user.activation_token = new_user.activation_token;
-						callback(user);
-					}, function(error){
-						callback(error);
-					});
-				}, function(error){
-					callback(error);
-				});
-			}).then(function (user) {
-				// Inactive user
-				var current_url = 'http://localhost:1337/#/password_resets/' + user.reset_token + '/edit?email=' + user.email;
-				browser.get(current_url);
-				expect(browser.getCurrentUrl()).toContain('#/home');
 
-				// Active user and logout
-				current_url = 'http://localhost:1337/#/account_activations/'+user.activation_token+'/update?email=' + user.email;
-				browser.get(current_url);
-				expect( element.all(by.css('[ui-sref="login"]')).count() ).toEqual(0);
-				element(by.css('.dropdown')).click();
-				element(by.css('[ui-sref="logout"]')).click();
-				expect( element.all(by.css('[ui-sref="login"]')).count() ).toEqual(1);
+			// Inactive user
+			var current_url = 'http://localhost:1337/#/password_resets/' + user.reset_token + '/edit?email=' + user.email;
+			browser.get(current_url);
+			expect(browser.getCurrentUrl()).toContain('#/home');
 
-				// Wrong email
-				current_url = 'http://localhost:1337/#/password_resets/' + user.reset_token + '/edit?email=';
-				browser.get(current_url);
-				expect(browser.getCurrentUrl()).toContain('#/home');
-				// Right email, wrong token
-				current_url = 'http://localhost:1337/#/password_resets/wrong_token/edit?email=' + user.email;
-				browser.get(current_url);
-				expect(browser.getCurrentUrl()).toContain('#/home');
-				// Right email, right token
-				current_url = 'http://localhost:1337/#/password_resets/' + user.reset_token + '/edit?email=' + user.email;
-				browser.get(current_url);
-				expect( element.all(by.css('input[name="email"][type="hidden"]')).count() ).toEqual(1);
-				// Invalid password & confirmation
-				element(by.css('[name="password"]')).sendKeys('foobaz');
-				element(by.css('[name="password_confirmation"]')).sendKeys('barquux');
-				element(by.css('[name="commit"]')).click();
-				expect( element.all(by.css('.has-error')).count() ).toEqual(1);
-				// Empty password
-				element(by.css('[name="password"]')).clear('');
-				element(by.css('[name="password_confirmation"]')).clear('');
-				element(by.css('[name="commit"]')).click();
-				expect( element.all(by.css('.has-error')).count() ).toEqual(1);
-				// Valid password & confirmation
-				element(by.css('[name="password"]')).sendKeys('foobaz');
-				element(by.css('[name="password_confirmation"]')).sendKeys('foobaz');
-				element(by.css('[name="commit"]')).click();
-				expect( element.all(by.css('[ui-sref="login"]')).count() ).toEqual(0);
+			// Active user and logout
+			current_url = 'http://localhost:1337/#/account_activations/'+user.activation_token+'/update?email=' + user.email;
+			browser.get(current_url);
+			expect( element.all(by.css('[ui-sref="login"]')).count() ).toEqual(0);
+			element(by.css('.dropdown')).click();
+			element(by.css('[ui-sref="logout"]')).click();
+			expect( element.all(by.css('[ui-sref="login"]')).count() ).toEqual(1);
+			// Wrong email
+			current_url = 'http://localhost:1337/#/password_resets/' + user.reset_token + '/edit?email=';
+			browser.get(current_url);
+			expect(browser.getCurrentUrl()).toContain('#/home');
+			// Right email, wrong token
+			current_url = 'http://localhost:1337/#/password_resets/wrong_token/edit?email=' + user.email;
+			browser.get(current_url);
+			expect(browser.getCurrentUrl()).toContain('#/home');
+			// Right email, right token
+			current_url = 'http://localhost:1337/#/password_resets/' + user.reset_token + '/edit?email=' + user.email;
+			browser.get(current_url);
+			expect( element.all(by.css('input[name="email"][type="hidden"]')).count() ).toEqual(1);
+			// Invalid password & confirmation
+			element(by.css('[name="password"]')).sendKeys('foobaz');
+			element(by.css('[name="password_confirmation"]')).sendKeys('barquux');
+			element(by.css('[name="commit"]')).click();
+			expect( element.all(by.css('.has-error')).count() ).toEqual(1);
+			// Empty password
+			element(by.css('[name="password"]')).clear('');
+			element(by.css('[name="password_confirmation"]')).clear('');
+			element(by.css('[name="commit"]')).click();
+			expect( element.all(by.css('.has-error')).count() ).toEqual(1);
+			// Valid password & confirmation
+			element(by.css('[name="password"]')).sendKeys('foobaz');
+			element(by.css('[name="password_confirmation"]')).sendKeys('foobaz');
+			element(by.css('[name="commit"]')).click();
+			expect( element.all(by.css('[ui-sref="login"]')).count() ).toEqual(0);
 
-				// Logout and relogin
-				element(by.css('.dropdown')).click();
-				element(by.css('[ui-sref="logout"]')).click();
-				expect( element.all(by.css('[ui-sref="login"]')).count() ).toEqual(1);
-				current_url = 'http://localhost:1337/#/login';
-				browser.get(current_url);
-				element(by.css('[name="email"]')).sendKeys(user.email);
-				element(by.css('[name="password"]')).sendKeys('foobaz');
-				element(by.css('[name="commit"]')).click();
-				expect( element.all(by.css('[ui-sref="login"]')).count() ).toEqual(0);
-				done();
-			});
-		}
+			// Logout and relogin
+			element(by.css('.dropdown')).click();
+			element(by.css('[ui-sref="logout"]')).click();
+			expect( element.all(by.css('[ui-sref="login"]')).count() ).toEqual(1);
+			current_url = 'http://localhost:1337/#/login';
+			browser.get(current_url);
+			element(by.css('[name="email"]')).sendKeys(user.email);
+			element(by.css('[name="password"]')).sendKeys('foobaz');
+			element(by.css('[name="commit"]')).click();
+			expect( element.all(by.css('[ui-sref="login"]')).count() ).toEqual(0);
+			done();
+		};
 
 		element.all(by.css('[ui-sref="login"]')).isDisplayed().then(function(result) {
 			if ( result.length > 0 ) {

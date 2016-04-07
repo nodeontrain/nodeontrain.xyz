@@ -303,7 +303,9 @@ function UsersController() {
 		var user = ModelSync( User.create(req.body) );
 		if (user && !user.errors)
 			mailerHelper.account_activation(user);
-		res.end(JSON.stringify(user));
+		res.end(JSON.stringify({
+			errors: user.errors ? user.errors : null
+		}));
 	};
 	...
 }
@@ -591,46 +593,51 @@ In this section, we’ll add an integration test for account activation.
 `public/test/e2e_test/integration/users_signup_test.js`
 
 {% highlight javascript %}
+require('trainjs').initServer();
+
 describe('UsersSignupTest', function() {
+	var user = null;
+
+	beforeEach(function(done){
+		if (!user) {
+			var user_number = new Date().getTime();
+			User.create({name: 'Example User', email: 'user-'+user_number+'@example.com', password: 'password', password_confirmation: 'password'}).then(function(new_user){
+				user = new_user;
+				done();
+			});
+		} else {
+			done();
+		}
+	});
+
 	...
 
 	it('valid signup information with account activation', function(done) {
 		var signup = function() {
-			browser.executeAsyncScript(function(callback) {
-				var $injector = angular.injector([ 'userService' ]);
-				var User = $injector.get( 'User' );
-				var user_number = new Date().getTime();
-				User.create({name: 'Example User', email: 'user-'+user_number+'@example.com', password: 'password', password_confirmation: 'password'}, function(user){
-					callback(user);
-				}, function(error){
-					callback(error);
-				});
-			}).then(function (output) {
-				// Try to log in before activation.
-				var current_url = 'http://localhost:1337/#/login';
-				browser.get(current_url);
-				element(by.css('[name="email"]')).sendKeys(output.email);
-				element(by.css('[name="password"]')).sendKeys(output.password);
-				element(by.css('[name="commit"]')).click();
-				expect( element.all(by.css('.alert-warning')).count() ).toEqual(1);
-				// Invalid activation token
-				current_url = 'http://localhost:1337/#/account_activations/invalid_token/update?email=' + output.email;
-				browser.get(current_url);
-				expect( element.all(by.css('.alert-danger')).count() ).toEqual(1);
-				expect( element.all(by.css('[ui-sref="logout"]')).count() ).toEqual(0);
-				// Valid token, wrong email
-				current_url = 'http://localhost:1337/#/account_activations/'+output.activation_token+'/update?email=wrong-email@example.net';
-				browser.get(current_url);
-				expect( element.all(by.css('.alert-danger')).count() ).toEqual(1);
-				expect( element.all(by.css('[ui-sref="logout"]')).count() ).toEqual(0);
-				// Valid activation token
-				current_url = 'http://localhost:1337/#/account_activations/'+output.activation_token+'/update?email=' + output.email;
-				browser.get(current_url);
-				expect( element.all(by.css('[ui-sref="login"]')).count() ).toEqual(0);
-				expect( element.all(by.css('[ui-sref="user_detail({id: current_user.id})"]')).count() ).toEqual(1);
-				done();
-			});
-		}
+			// Try to log in before activation.
+			var current_url = 'http://localhost:1337/#/login';
+			browser.get(current_url);
+			element(by.css('[name="email"]')).sendKeys(user.email);
+			element(by.css('[name="password"]')).sendKeys(user.password);
+			element(by.css('[name="commit"]')).click();
+			expect( element.all(by.css('.alert-warning')).count() ).toEqual(1);
+			// Invalid activation token
+			current_url = 'http://localhost:1337/#/account_activations/invalid_token/update?email=' + user.email;
+			browser.get(current_url);
+			expect( element.all(by.css('.alert-danger')).count() ).toEqual(1);
+			expect( element.all(by.css('[ui-sref="logout"]')).count() ).toEqual(0);
+			// Valid token, wrong email
+			current_url = 'http://localhost:1337/#/account_activations/'+user.activation_token+'/update?email=wrong-email@example.net';
+			browser.get(current_url);
+			expect( element.all(by.css('.alert-danger')).count() ).toEqual(1);
+			expect( element.all(by.css('[ui-sref="logout"]')).count() ).toEqual(0);
+			// Valid activation token
+			current_url = 'http://localhost:1337/#/account_activations/'+user.activation_token+'/update?email=' + user.email;
+			browser.get(current_url);
+			expect( element.all(by.css('[ui-sref="login"]')).count() ).toEqual(0);
+			expect( element.all(by.css('[ui-sref="user_detail({id: current_user.id})"]')).count() ).toEqual(1);
+			done();
+		};
 
 		element.all(by.css('[ui-sref="login"]')).isDisplayed().then(function(result) {
 			if ( result.length > 0 ) {
@@ -715,7 +722,9 @@ function UsersController() {
 		var user = ModelSync( User.create(req.body) );
 		if (user && !user.errors)
 			user.send_activation_email();
-		res.end(JSON.stringify(user));
+		res.end(JSON.stringify({
+			errors: user.errors ? user.errors : null
+		}));
 	};
 	...
 }
