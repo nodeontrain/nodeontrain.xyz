@@ -6,7 +6,7 @@ next_section: account_activation
 permalink: /tuts/deleting_users/
 ---
 
-Now that the users index is complete, there’s only one canonical REST action left: destroy.
+Now that the users index is complete, there's only one canonical REST action left: destroy.
 
 ### Administrative users
 
@@ -67,7 +67,7 @@ Next, we migrate as usual
 ~/sample_app $ sequelize db:migrate
 {% endhighlight %}
 
-As a final step, let’s update our seed data to make the first user an admin by default
+As a final step, let's update our seed data to make the first user an admin by default
 
 `db/seeds.js`
 
@@ -117,7 +117,7 @@ Then reset the database
 
 ### The destroy action
 
-The final step needed to complete the Users resource is to add delete links and a destroy action. We’ll start by adding a delete link for each user on the users index page, restricting access to administrative users.
+The final step needed to complete the Users resource is to add delete links and a destroy action. We'll start by adding a delete link for each user on the users index page, restricting access to administrative users.
 
 `public/partials/users/index.html`
 
@@ -217,7 +217,7 @@ function UsersController() {
 module.exports = UsersController;
 {% endhighlight %}
 
-As in ["Authorization" Section](https://nodeontrain.xyz/tuts/authorization/), we’ll enforce access control using a before filter, this time to restrict access to the destroy action to admins.
+As in ["Authorization" Section](https://nodeontrain.xyz/tuts/authorization/), we'll enforce access control using a before filter, this time to restrict access to the destroy action to admins.
 
 `app/controllers/users_controller.js`
 
@@ -276,7 +276,7 @@ usersController.controller(
 
 ### User destroy tests
 
-With something as dangerous as destroying users, it’s important to have good tests for the expected behavior.
+With something as dangerous as destroying users, it's important to have good tests for the expected behavior.
 
 `public/test/e2e_test/controllers/users_controller_test.js`
 

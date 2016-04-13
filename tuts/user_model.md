@@ -6,7 +6,7 @@ next_section: user_validations
 permalink: /tuts/user_model/
 ---
 
-Although the ultimate goal of [the previous post](https://nodeontrain.xyz/tuts/user_signup_first_step/) is to make a signup page for our site, it would do little good now to accept information for new users: we don’t currently have any place to put it. Thus, the first step in signing up users is to make a data structure to capture and store their information.
+Although the ultimate goal of [the previous post](https://nodeontrain.xyz/tuts/user_signup_first_step/) is to make a signup page for our site, it would do little good now to accept information for new users: we don't currently have any place to put it. Thus, the first step in signing up users is to make a data structure to capture and store their information.
 
 ### Database migrations
 
@@ -103,7 +103,7 @@ undefined
 Executing (default): INSERT INTO `user` (`id`,`name`,`email`,`updatedAt`,`createdAt`) VALUES (NULL,'Dang Thanh','thanh@example.com','2016-01-20 09:39:59.293 +00:00','2016-01-20 09:39:59.293 +00:00');
 {% endhighlight %}
 
-You may have noticed that the new user object had `null` values for the `id` and the magic columns `createdAt` and `updatedAt` attributes. Let’s see if our save changed anything
+You may have noticed that the new user object had `null` values for the `id` and the magic columns `createdAt` and `updatedAt` attributes. Let's see if our save changed anything
 {% highlight javascript %}
 > user
 { dataValues:
@@ -144,7 +144,7 @@ Executing (default): DELETE FROM `user` WHERE `id` = 3
 
 
 ### Finding user objects
-Sequelize provides several options for finding objects. Let’s use them to find the first user we created while verifying that the third user (foo) has been destroyed. We’ll start with the existing user
+Sequelize provides several options for finding objects. Let's use them to find the first user we created while verifying that the third user (foo) has been destroyed. We'll start with the existing user
 {% highlight javascript %}
 > User.findById(1).then(function(data){ console.log(data) })
 { dataValues:
@@ -156,15 +156,15 @@ Sequelize provides several options for finding objects. Let’s use them to find
 	 ...
 {% endhighlight %}
 
-Here we’ve passed the id of the user to User.find; Sequelize returns the user with that id.
+Here we've passed the id of the user to User.find; Sequelize returns the user with that id.
 
-Let’s see if the user with an id of 3 still exists in the database
+Let's see if the user with an id of 3 still exists in the database
 {% highlight javascript %}
 > User.findById(3).then(function(data){ console.log(data) })
 null
 {% endhighlight %}
 
-Since we destroyed our third user, Sequelize can’t find it in the database.
+Since we destroyed our third user, Sequelize can't find it in the database.
 
 Sequelize also allows us to find users by specific attributes
 {% highlight javascript %}
@@ -180,7 +180,7 @@ Sequelize also allows us to find users by specific attributes
 
 ### Updating user objects
 
-Once we’ve created objects, we often want to update them. There are two basic ways to do this. First, we can assign attributes individually
+Once we've created objects, we often want to update them. There are two basic ways to do this. First, we can assign attributes individually
 {% highlight javascript %}
 > user
 { dataValues:

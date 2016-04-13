@@ -44,7 +44,7 @@ module.exports = {
 };
 {% endhighlight %}
 
-With the log_in method defined, we’re now ready to complete the session create action by logging the user in and redirecting to the user’s profile page.
+With the log_in method defined, we're now ready to complete the session create action by logging the user in and redirecting to the user's profile page.
 
 `app/controllers/sessions_controller.js`
 
@@ -98,7 +98,7 @@ sessionsController.controller(
 
 ### Current user
 
-Having placed the user’s id securely in the temporary session, we are now in a position to retrieve it on subsequent pages, which we’ll do by defining a current_user method to find the user in the database corresponding to the session id.
+Having placed the user's id securely in the temporary session, we are now in a position to retrieve it on subsequent pages, which we'll do by defining a current_user method to find the user in the database corresponding to the session id.
 
 `app/helpers/sessions_helper.js`
 
@@ -230,7 +230,7 @@ module.exports = SessionsController;
 </div>
 {% endhighlight %}
 
-To activate the dropdown menu, we need to include Bootstrap’s custom JavaScript library.
+To activate the dropdown menu, we need to include Bootstrap's custom JavaScript library.
 
 {% highlight bash %}
 ~/sample_app $ npm install jquery --save
@@ -250,7 +250,7 @@ To activate the dropdown menu, we need to include Bootstrap’s custom JavaScrip
 
 ### Testing layout changes
 
-Having verified by hand that the application is behaving properly upon successful login, before moving on we’ll write an integration test to capture that behavior and catch regressions.
+Having verified by hand that the application is behaving properly upon successful login, before moving on we'll write an integration test to capture that behavior and catch regressions.
 
 	1. Visit the login path.
 	2. Post valid information to the sessions path.
@@ -290,7 +290,7 @@ Started
 
 ### Login upon signup
 
-Although our authentication system is now working, newly registered users might be confused, as they are not logged in by default. Because it would be strange to force users to log in immediately after signing up, we’ll log in new users automatically as part of the signup process. To arrange this behavior, all we need to do is add a call to `log_in` in the Users controller `create` action
+Although our authentication system is now working, newly registered users might be confused, as they are not logged in by default. Because it would be strange to force users to log in immediately after signing up, we'll log in new users automatically as part of the signup process. To arrange this behavior, all we need to do is add a call to `log_in` in the Users controller `create` action
 
 `app/controllers/users_controller.js`
 

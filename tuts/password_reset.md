@@ -2,24 +2,17 @@
 layout: tuts
 title: Password reset
 prev_section: account_activation
-next_section: email_in_production
+next_section: micropost_model
 permalink: /tuts/password_reset/
 ---
 
-Having completed account activation (and thereby verified the user’s email address), we’re now in a good position to handle the common case of users forgetting their passwords.
-
-<div class="note info">
-  <h5><a href="https://nodeontrain.xyz">trainjs</a></h5>
-  <p>
-	You should always update <a href="https://nodeontrain.xyz">trainjs</a> for this tutorial.
-  </p>
-</div>
+Having completed account activation (and thereby verified the user's email address), we're now in a good position to handle the common case of users forgetting their passwords.
 
 In analogy with account activations, our general plan is to make a Password Resets resource, with each password reset consisting of a reset token and corresponding reset digest. The primary sequence goes like this
 
 	1. When a user requests a password reset, find the user by the submitted email address.
 	2. If the email address exists in the database, generate a reset token and corresponding reset digest.
-	3. Save the reset digest to the database, and then send an email to the user with a link containing the reset token and user’s email address.
+	3. Save the reset digest to the database, and then send an email to the user with a link containing the reset token and user's email address.
 	4. When the user clicks the link, find the user by email address, and then authenticate the token by comparing to the reset digest.
 	5. If authenticated, present the user with the form for changing the password.
 
@@ -113,7 +106,7 @@ Adding a link to password resets.
 </div>
 {% endhighlight %}
 
-The data model for password resets is similar to the one used for [account activation](https://nodeontrain.xyz/tuts/account_activation/#account-activations-resource). Following the pattern set by [remember tokens](https://nodeontrain.xyz/tuts/remember_me/) and [account activation tokens](https://nodeontrain.xyz/tuts/account_activation/), password resets will pair a virtual reset token for use in the reset email with a corresponding reset digest for retrieving the user. If we instead stored an unhashed token, an attacker with access to the database could send a reset request to the user’s email address and then use the token and email to visit the corresponding password reset link, thereby gaining control of the account. Using a digest for password resets is thus essential. As an additional security precaution, we’ll also plan to expire the reset link after a couple of hours, which requires recording the time when the reset gets sent.
+The data model for password resets is similar to the one used for [account activation](https://nodeontrain.xyz/tuts/account_activation/#account-activations-resource). Following the pattern set by [remember tokens](https://nodeontrain.xyz/tuts/remember_me/) and [account activation tokens](https://nodeontrain.xyz/tuts/account_activation/), password resets will pair a virtual reset token for use in the reset email with a corresponding reset digest for retrieving the user. If we instead stored an unhashed token, an attacker with access to the database could send a reset request to the user's email address and then use the token and email to visit the corresponding password reset link, thereby gaining control of the account. Using a digest for password resets is thus essential. As an additional security precaution, we'll also plan to expire the reset link after a couple of hours, which requires recording the time when the reset gets sent.
 
 {% highlight bash %}
 ~/sample_app $ sequelize migration:create --name add_reset_to_users
@@ -382,7 +375,7 @@ At this point, the test suite should be successful
 
 ### Resetting the password
 
-To get links of the reset form to work, we need a form for resetting passwords. The task is similar to updating users via the user edit view, but in this case with only password and confirmation fields. There’s an additional complication, though: we expect to find the user by email address, which means we need its value in both the edit and update actions. The email will automatically be available in the edit action because of its presence in the link above, but after we submit the form its value will be lost. The solution is to use a hidden field to place (but not display) the email on the page, and then submit it along with the rest of the form’s information.
+To get links of the reset form to work, we need a form for resetting passwords. The task is similar to updating users via the user edit view, but in this case with only password and confirmation fields. There's an additional complication, though: we expect to find the user by email address, which means we need its value in both the edit and update actions. The email will automatically be available in the edit action because of its presence in the link above, but after we submit the form its value will be lost. The solution is to use a hidden field to place (but not display) the email on the page, and then submit it along with the rest of the form's information.
 
 `public/partials/password_resets/edit.html`
 
@@ -402,7 +395,7 @@ To get links of the reset form to work, we need a form for resetting passwords. 
 </div>
 {% endhighlight %}
 
-To get the form to render, we need to define an `password_reset` variable in the Password Resets controller’s edit action.
+To get the form to render, we need to define an `password_reset` variable in the Password Resets controller's edit action.
 
 `public/controllers/password_resets_controller.js`
 

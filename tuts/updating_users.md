@@ -101,7 +101,7 @@ Adding a URL to the “Settings” link in the site layout.
 
 ### Unsuccessful edits
 
-In this section we’ll handle unsuccessful edits, following similar ideas to [unsuccessful signups](https://nodeontrain.xyz/tuts/unsuccessful_signups/)
+In this section we'll handle unsuccessful edits, following similar ideas to [unsuccessful signups](https://nodeontrain.xyz/tuts/unsuccessful_signups/)
 
 `public/controllers/users_controller.js`
 
@@ -188,7 +188,7 @@ Because of the existing User model validations, submission of invalid informatio
 
 ### Testing unsuccessful edits
 
-We’ll write a simple test of an unsuccessful edit
+We'll write a simple test of an unsuccessful edit
 
 `public/test/e2e_test/integration/users_edit_test.js`
 
@@ -217,7 +217,7 @@ At this point, the test suite should still be successful
 
 ### Successful edits (with TDD)
 
-Now it’s time to get the edit form to work.
+Now it's time to get the edit form to work.
 
 `public/test/e2e_test/integration/users_edit_test.js`
 

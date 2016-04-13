@@ -6,7 +6,7 @@ next_section: logging_in
 permalink: /tuts/sessions/
 ---
 
-The most common techniques for implementing sessions in [trainjs](https://nodeontrain.xyz) involve using cookies, which are small pieces of text placed on the user’s browser. Because cookies persist from one page to the next, they can store information (such as a user id) that can be used by the application to retrieve the logged-in user from the database. In this section and ["Logging in" Section](https://nodeontrain.xyz/tuts/logging_in/), we’ll use the session to make temporary sessions that expire automatically on browser close, and then in ["Remember me" Section](https://nodeontrain.xyz/tuts/remember_me/) we’ll add longer-lived sessions using another the module called cookies.
+The most common techniques for implementing sessions in [trainjs](https://nodeontrain.xyz) involve using cookies, which are small pieces of text placed on the user's browser. Because cookies persist from one page to the next, they can store information (such as a user id) that can be used by the application to retrieve the logged-in user from the database. In this section and ["Logging in" Section](https://nodeontrain.xyz/tuts/logging_in/), we'll use the session to make temporary sessions that expire automatically on browser close, and then in ["Remember me" Section](https://nodeontrain.xyz/tuts/remember_me/) we'll add longer-lived sessions using another the module called cookies.
 
 ### Sessions controller
 
@@ -101,7 +101,7 @@ module.exports = [
 
 ### Login form
 
-With the proper form_for in hand, it’s easy to make a login form.
+With the proper form_for in hand, it's easy to make a login form.
 
 `public/partials/sessions/new.html`
 
@@ -180,7 +180,7 @@ module.exports = SessionsController;
 
 ### Rendering with a flash message
 
-Recall from ["Unsuccessful signups" Section](https://nodeontrain.xyz/tuts/unsuccessful_signups/#signup-error-messages) that we displayed signup errors using the User model error messages. These errors are associated with a particular Sequelize object, but this strategy won’t work here because the session isn’t an Sequelize model. Instead, we’ll put a message in the flash to be displayed upon failed login.
+Recall from ["Unsuccessful signups" Section](https://nodeontrain.xyz/tuts/unsuccessful_signups/#signup-error-messages) that we displayed signup errors using the User model error messages. These errors are associated with a particular Sequelize object, but this strategy won't work here because the session isn't an Sequelize model. Instead, we'll put a message in the flash to be displayed upon failed login.
 
 `app/controllers/sessions_controller.js`
 
@@ -250,7 +250,7 @@ flashHelper.factory('flashHelper', ['$rootScope', function($rootScope) {
 
 ### A failed login test
 
-We start by generating an integration test for our application’s login behavior
+We start by generating an integration test for our application's login behavior
 
 `public/test/e2e_test/integration/users_login_test.js`
 

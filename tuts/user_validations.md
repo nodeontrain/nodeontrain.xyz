@@ -8,11 +8,11 @@ permalink: /tuts/user_validations/
 
 The User model we created in ["User model" Section](https://nodeontrain.xyz/tuts/user_model/) now has working name and email attributes, but they are completely generic: any string (including an empty one) is currently valid in either case. And yet, names and email addresses are more specific than this. For example, name should be non-blank, and email should match the specific format characteristic of email addresses.
 
-In short, we shouldn’t allow name and email to be just any strings; we should enforce certain constraints on their values. In this section, we’ll cover several of the most common cases, validating presence, length, format and uniqueness. In ["Adding a secure password" Section](https://nodeontrain.xyz/tuts/secure_password/#user-has-secure-password) we’ll add a final common validation, confirmation. And we’ll see in ["Unsuccessful signups" Section](https://nodeontrain.xyz/tuts/unsuccessful_signups/) how validations give us convenient error messages when users make submissions that violate them.
+In short, we shouldn't allow name and email to be just any strings; we should enforce certain constraints on their values. In this section, we'll cover several of the most common cases, validating presence, length, format and uniqueness. In ["Adding a secure password" Section](https://nodeontrain.xyz/tuts/secure_password/#user-has-secure-password) we'll add a final common validation, confirmation. And we'll see in ["Unsuccessful signups" Section](https://nodeontrain.xyz/tuts/unsuccessful_signups/) how validations give us convenient error messages when users make submissions that violate them.
 
 ### A validity test
 
-To get us started, the `generate model` command produced an initial test for testing users, though in this case it’s practically blank
+To get us started, the `generate model` command produced an initial test for testing users, though in this case it's practically blank
 
 {% highlight javascript %}
 require('trainjs').initServer();
@@ -28,7 +28,7 @@ To test the model we use `mocha` framework
 ~/sample_app $ sudo npm install -g mocha
 {% endhighlight %}
 
-To write a test for a valid object, we’ll create an initially valid User model object `user` using the special `beforeEach` method, which automatically gets run before each test. Because `user` is an instance variable, it’s automatically available in all the tests, and we can test its validity using the validate() method
+To write a test for a valid object, we'll create an initially valid User model object `user` using the special `beforeEach` method, which automatically gets run before each test. Because `user` is an instance variable, it's automatically available in all the tests, and we can test its validity using the validate() method
 
 `test/models/user_test.js`
 
@@ -52,7 +52,7 @@ describe('UserTest', function () {
 });
 {% endhighlight %}
 
-Because our User model doesn’t currently have any validations, the initial test should pass
+Because our User model doesn't currently have any validations, the initial test should pass
 
 {% highlight bash %}
 ~/sample_app $ mocha test/models/user_test.js
@@ -64,7 +64,7 @@ Because our User model doesn’t currently have any validations, the initial tes
 
 ### Validating presence
 
-We’ll start with a test for the presence of a name attribute
+We'll start with a test for the presence of a name attribute
 `test/models/user_test.js`
 {% highlight javascript %}
 require('trainjs').initServer();
@@ -135,7 +135,7 @@ var User = sequelize.define('user', {
 module.exports = User;
 {% endhighlight %}
 
-Let’s drop into the console to see the effects of adding a validation to our User model
+Let's drop into the console to see the effects of adding a validation to our User model
 
 {% highlight bash %}
 ~/sample_app $ node
@@ -158,7 +158,7 @@ Here we check the validity of the user variable using the `validate` method
 	   __raw: 'Validation notEmpty failed' } ] }
 {% endhighlight %}
 
-Because the user isn’t valid, an attempt to save the user to the database automatically fails
+Because the user isn't valid, an attempt to save the user to the database automatically fails
 {% highlight javascript %}
 > user.save()
 Unhandled rejection SequelizeValidationError: Validation error: Validation notEmpty failed
@@ -259,7 +259,7 @@ At this point, the presence validations are complete, and the test suite should 
 
 ### Length validation
 
-We’ve constrained our User model to require a name for each user, but we should go further: the user’s names will be displayed on the sample site, so we should enforce some limit on their length.
+We've constrained our User model to require a name for each user, but we should go further: the user's names will be displayed on the sample site, so we should enforce some limit on their length.
 
 `test/models/user_test.js`
 
@@ -303,7 +303,7 @@ We can see how this works using the console
 51
 {% endhighlight %}
 
-The email length validation arranges to make a valid email address that’s one character too long
+The email length validation arranges to make a valid email address that's one character too long
 
 {% highlight javascript %}
 > "a".repeat(244) + "@example.com"
@@ -386,7 +386,7 @@ valid_addresses.forEach(function(valid_address) {
 ...
 {% endhighlight %}
 
-Next we’ll add tests for the invalidity of a variety of invalid email addresses.
+Next we'll add tests for the invalidity of a variety of invalid email addresses.
 
 {% highlight javascript %}
 ...
@@ -468,9 +468,9 @@ At this point, the tests should be successful
 
 ### Uniqueness validation
 
-To enforce uniqueness of email addresses (so that we can use them as usernames), we’ll be using the `unique` option.
+To enforce uniqueness of email addresses (so that we can use them as usernames), we'll be using the `unique` option.
 
-We’ll start with some short tests.
+We'll start with some short tests.
 
 `test/models/user_test.js`
 
@@ -543,11 +543,11 @@ At this point, our application—with an important caveat—enforces email uniqu
   16 passing (365ms)
 {% endhighlight %}
 
-There’s just one small problem, which is that the uniqueness validation does not guarantee uniqueness at the database level. Here’s a scenario that explains why:
+There's just one small problem, which is that the uniqueness validation does not guarantee uniqueness at the database level. Here's a scenario that explains why:
 
 	1. Alice signs up for the sample app, with address alice@wonderland.com.
 	2. Alice accidentally clicks on “Submit” twice, sending two requests in quick succession.
-	3. The following sequence occurs: request 1 creates a user in memory that passes validation, request 2 does the same, request 1’s user gets saved, request 2’s user gets saved.
+	3. The following sequence occurs: request 1 creates a user in memory that passes validation, request 2 does the same, request 1's user gets saved, request 2's user gets saved.
 	4. Result: two user records with the exact same email address, despite the uniqueness validation
 
 Luckily, the solution is straightforward to implement: we just need to enforce uniqueness at the database level as well as at the model level. Our method is to create a database index on the email column, and then require that the index be unique.
@@ -597,9 +597,9 @@ Finished 'db:migrate' after 947 ms
 == 20160126154757-add_index_to_users_email: migrated (0.277s)
 {% endhighlight %}
 
-Having addressed the uniqueness caveat, there’s one more change we need to make to be assured of email uniqueness. Some database adapters use case-sensitive indices, considering the strings “Foo@ExAMPle.CoM” and “foo@example.com” to be distinct, but our application treats those addresses as the same. To avoid this incompatibility, we’ll standardize on all lower-case addresses, converting “Foo@ExAMPle.CoM” to “foo@example.com” before saving it to the database.
+Having addressed the uniqueness caveat, there's one more change we need to make to be assured of email uniqueness. Some database adapters use case-sensitive indices, considering the strings “Foo@ExAMPle.CoM” and “foo@example.com” to be distinct, but our application treats those addresses as the same. To avoid this incompatibility, we'll standardize on all lower-case addresses, converting “Foo@ExAMPle.CoM” to “foo@example.com” before saving it to the database.
 
-We’ll use `beforeCreate` and `beforeUpdate` to downcase the email attribute before saving the user.
+We'll use `beforeCreate` and `beforeUpdate` to downcase the email attribute before saving the user.
 
 {% highlight javascript %}
 var Sequelize = require('sequelize');

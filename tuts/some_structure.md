@@ -6,11 +6,11 @@ next_section: layout_links
 permalink: /tuts/some_structure/
 ---
 
-In this section we’ll add some structure to the layout and give it some minimal styling with CSS.
+In this section we'll add some structure to the layout and give it some minimal styling with CSS.
 
 ### Site navigation
 
-As a first step toward adding links and styles to the sample application, we’ll update the site layout file `public/index.html` with additional HTML structure. This includes some additional divisions, some CSS classes, and the start of our site navigation.
+As a first step toward adding links and styles to the sample application, we'll update the site layout file `public/index.html` with additional HTML structure. This includes some additional divisions, some CSS classes, and the start of our site navigation.
 
 {% highlight html %}
 <body>
@@ -31,7 +31,7 @@ As a first step toward adding links and styles to the sample application, we’l
 </body>
 {% endhighlight %}
 
-To take advantage of the upcoming style elements, we’ll add some extra elements to the `public/partials/static_pages/home.html` view.
+To take advantage of the upcoming style elements, we'll add some extra elements to the `public/partials/static_pages/home.html` view.
 
 {% highlight html %}
 <div class="center jumbotron">
@@ -62,7 +62,7 @@ The first step toward getting custom CSS to work is to create such a custom CSS 
 @import url("../../../node_modules/bootstrap/dist/css/bootstrap.min.css");
 {% endhighlight %}
 
-Next we’ll add some CSS that will be used site-wide for styling the layout and each individual page.
+Next we'll add some CSS that will be used site-wide for styling the layout and each individual page.
 
 {% highlight css %}
 @import url("../../../node_modules/bootstrap/dist/css/bootstrap.min.css");
@@ -150,7 +150,7 @@ The result of the CSS
 
 The header HTML forms a logical unit, so it should all be packaged up in one place. The way to achieve this in Angular is to use a facility called partials.
 
-Let’s first take a look at what the layout looks like after the partials are defined in `public/index.html`
+Let's first take a look at what the layout looks like after the partials are defined in `public/index.html`
 
 {% highlight html %}
 <body>
@@ -176,7 +176,7 @@ Similarly, we can move the header material into the partial shown in `public/par
 </div>
 {% endhighlight %}
 
-Now that we know how to make partials, let’s add a site footer to go along with the header. By now you can probably guess that we’ll call it _footer.html and put it in the layouts directory
+Now that we know how to make partials, let's add a site footer to go along with the header. By now you can probably guess that we'll call it _footer.html and put it in the layouts directory
 
 `public/partials/layouts/_footer.html`
 

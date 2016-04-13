@@ -6,7 +6,7 @@ next_section: successful_signups
 permalink: /tuts/unsuccessful_signups/
 ---
 
-In this section, we’ll create a signup form that accepts an invalid submission and re-renders the signup page with a list of errors.
+In this section, we'll create a signup form that accepts an invalid submission and re-renders the signup page with a list of errors.
 
 ### A working form
 
@@ -110,7 +110,7 @@ module.exports = app;
 
 ### Signup error messages
 
-As a final step in handling failed user creation, we’ll add helpful error messages to indicate the problems that prevented successful signup.
+As a final step in handling failed user creation, we'll add helpful error messages to indicate the problems that prevented successful signup.
 
 {% highlight javascript %}
 > require('trainjs').initServer()
@@ -120,7 +120,7 @@ Unhandled rejection SequelizeValidationError: Validation error: Validation isEma
 Validation error: Validation len failed
 {% endhighlight %}
 
-As in the console session above, the failed save generates a list of error messages associated with the `user` object. To display the messages in the browser, we’ll render an error-messages partial on the user new page
+As in the console session above, the failed save generates a list of error messages associated with the `user` object. To display the messages in the browser, we'll render an error-messages partial on the user new page
 
 `public/partials/users/new.html`
 
@@ -250,9 +250,9 @@ Underlying this method is a powerful inflector that knows how to pluralize a lar
 
 ### A test for invalid submission
 
-In the days before powerful web frameworks with full testing capabilities, developers had to test forms by hand. For example, to test a signup page manually, we would have to visit the page in a browser and then submit alternately invalid and valid data, verifying in each case that the application’s behavior was correct.
+In the days before powerful web frameworks with full testing capabilities, developers had to test forms by hand. For example, to test a signup page manually, we would have to visit the page in a browser and then submit alternately invalid and valid data, verifying in each case that the application's behavior was correct.
 
-To get started, we first generate an integration test file for signing up users, which we’ll call `users_signup`
+To get started, we first generate an integration test file for signing up users, which we'll call `users_signup`
 
 `public/test/e2e_test/integration/users_signup_test.js`
 

@@ -6,7 +6,7 @@ next_section: dynamic_pages
 permalink: /tuts/first_testing/
 ---
 
-When making a change of this nature, it’s a good practice to write an automated test to verify that the feature is implemented correctly.
+When making a change of this nature, it's a good practice to write an automated test to verify that the feature is implemented correctly.
 
 ### Our first test
 
@@ -105,7 +105,7 @@ Failures:
 
 ### Passing test
 
-Now that we have a failing test, we’ll use the failing test’s error messages to guide us to a passing test, thereby implementing a working About page.
+Now that we have a failing test, we'll use the failing test's error messages to guide us to a passing test, thereby implementing a working About page.
 
 We can get started by examining the error message output by the failing test:
 

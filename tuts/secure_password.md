@@ -6,7 +6,7 @@ next_section: showing_users
 permalink: /tuts/secure_password/
 ---
 
-Now that we’ve defined validations for the name and email fields, we’re ready to add the last of the basic User attributes: a secure password. The method is to require each user to have a password (with a password confirmation), and then store a hashed version of the password in the database.
+Now that we've defined validations for the name and email fields, we're ready to add the last of the basic User attributes: a secure password. The method is to require each user to have a password (with a password confirmation), and then store a hashed version of the password in the database.
 
 ### A hashed password
 
@@ -196,7 +196,7 @@ Now the tests should be successful
 
 ### Minimum password standards
 
-It’s good practice in general to enforce some minimum standards on passwords to make them harder to guess. Picking a length of 6 as a reasonable minimum leads to the validation test
+It's good practice in general to enforce some minimum standards on passwords to make them harder to guess. Picking a length of 6 as a reasonable minimum leads to the validation test
 
 `test/models/user_test.js`
 
@@ -235,7 +235,7 @@ describe('UserTest', function () {
 });
 {% endhighlight %}
 
-You may be able to guess the code for enforcing a minimum length constraint by referring to the corresponding maximum validation  for the user’s name
+You may be able to guess the code for enforcing a minimum length constraint by referring to the corresponding maximum validation  for the user's name
 
 `app/models/user.js`
 
@@ -289,7 +289,7 @@ At this point, the tests should be successful
 
 ### Creating and authenticating a user
 
-Now that the basic User model is complete, we’ll create a user in the database as preparation for making a page to show the user’s information in ["Showing users" Section](https://nodeontrain.xyz/tuts/showing_users/).
+Now that the basic User model is complete, we'll create a user in the database as preparation for making a page to show the user's information in ["Showing users" Section](https://nodeontrain.xyz/tuts/showing_users/).
 
 {% highlight javascript %}
 > require('trainjs').initServer()

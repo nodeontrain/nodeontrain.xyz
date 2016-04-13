@@ -6,23 +6,23 @@ next_section: user_signup_first_step
 permalink: /tuts/layout_links/
 ---
 
-Now that we’ve finished a site layout with decent styling, it’s time to start filling in the links we’ve stubbed out with ’#’. Of course, we could hard-code links like
+Now that we've finished a site layout with decent styling, it's time to start filling in the links we've stubbed out with '#'. Of course, we could hard-code links like
 
 {% highlight html %}
 <a href="/static_pages/about">About</a>
 {% endhighlight %}
 
-but that isn’t the AngularUI. For one, it would be nice if the URL for the about page were `/about` rather than `/static_pages/about`. Moreover, AngularUI conventionally uses `ui-sref` and state name, which involves code like
+but that isn't the AngularUI. For one, it would be nice if the URL for the about page were `/about` rather than `/static_pages/about`. Moreover, AngularUI conventionally uses `ui-sref` and state name, which involves code like
 
 {% highlight html %}
 <a href ui-sref="about">About</a>
 {% endhighlight %}
 
-This way the code has a more transparent meaning, and it’s also more flexible since we can change the definition of `about` and have the URL change everywhere `about` is used.
+This way the code has a more transparent meaning, and it's also more flexible since we can change the definition of `about` and have the URL change everywhere `about` is used.
 
 ### Contact page
 
-For completeness, we’ll add the Contact page. The test appears as in `public/test/e2e_test/controllers/static_pages_controller_test.js`
+For completeness, we'll add the Contact page. The test appears as in `public/test/e2e_test/controllers/static_pages_controller_test.js`
 
 {% highlight javascript %}
 describe('staticPagesControllerTest', function() {
@@ -228,7 +228,7 @@ $stateProvider
 
 ### Using ui-sref
 
-We’ll start in the header partial, `public/partials/layouts/_header.html`, which has links to the Home and Help pages. While we’re at it, we’ll follow a common web convention and link the logo to the Home page as well.
+We'll start in the header partial, `public/partials/layouts/_header.html`, which has links to the Home and Help pages. While we're at it, we'll follow a common web convention and link the logo to the Home page as well.
 
 {% highlight html %}
 <div class="container">
@@ -262,7 +262,7 @@ The other place with links is the footer `public/partials/layouts/_footer.html.e
 
 ### Layout link tests
 
-We can get started by generating a template test, which we’ll call site_layout
+We can get started by generating a template test, which we'll call site_layout
 
 `public/test/e2e_test/integration/site_layout_test.js`
 

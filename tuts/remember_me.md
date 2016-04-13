@@ -6,13 +6,13 @@ next_section: updating_users
 permalink: /tuts/remember_me/
 ---
 
-The login system we finished in ["Logging in" section](https://nodeontrain.xyz/tuts/logging_in/) is self-contained and fully functional, but most websites have the additional capability of remembering users’ sessions even after they close their browsers. In this section, we’ll start by remembering user logins by default, expiring their sessions only when they explicitly log out.
+The login system we finished in ["Logging in" section](https://nodeontrain.xyz/tuts/logging_in/) is self-contained and fully functional, but most websites have the additional capability of remembering users' sessions even after they close their browsers. In this section, we'll start by remembering user logins by default, expiring their sessions only when they explicitly log out.
 
 ### Remember token and digest
 
-In ["Logging in" Section](https://nodeontrain.xyz/tuts/logging_in/), we used the Rails session method to store the user’s id, but this information disappears when the user closes their browser. In this section, we’ll take the first step toward persistent sessions by generating a remember token appropriate for creating permanent cookies together with a secure remember digest for authenticating those tokens.
+In ["Logging in" Section](https://nodeontrain.xyz/tuts/logging_in/), we used the Rails session method to store the user's id, but this information disappears when the user closes their browser. In this section, we'll take the first step toward persistent sessions by generating a remember token appropriate for creating permanent cookies together with a secure remember digest for authenticating those tokens.
 
-We’ll start by adding the required `remember_digest` attribute to the User model
+We'll start by adding the required `remember_digest` attribute to the User model
 
 {% highlight bash %}
 ~/sample_app $ sequelize migration:create --name add_remember_digest_to_users
@@ -38,7 +38,7 @@ module.exports = {
 };
 {% endhighlight %}
 
-Because we don’t expect to retrieve users by remember digest, there’s no need to put an index on the `remember_digest` column, and we can use the default migration as generated above
+Because we don't expect to retrieve users by remember digest, there's no need to put an index on the `remember_digest` column, and we can use the default migration as generated above
 
 {% highlight bash %}
 ~/sample_app $ sequelize db:migrate
@@ -194,7 +194,7 @@ var User = sequelize.define('user', {
 ...
 {% endhighlight %}
 
-We’re now in a position to remember a logged-in user, which we’ll do by adding a remember helper to go along with log_in
+We're now in a position to remember a logged-in user, which we'll do by adding a remember helper to go along with log_in
 
 `app/controllers/sessions_controller.js`
 
@@ -247,7 +247,7 @@ module.exports = {
 {% endhighlight %}
 
 
-With the code above, a user logging in will be remembered in the sense that their browser will get a valid remember token, but it doesn’t yet do us any good because the current_user method knows only about the temporary session
+With the code above, a user logging in will be remembered in the sense that their browser will get a valid remember token, but it doesn't yet do us any good because the current_user method knows only about the temporary session
 
 In the case of persistent sessions, we want to retrieve the user from the temporary session if `req.session.user_id` exists, but otherwise we should look for `req.cookies.get("user_id")` to retrieve (and log in) the user corresponding to the persistent session. We can accomplish this as follows
 
@@ -286,7 +286,7 @@ module.exports = {
 
 ### Forgetting users
 
-To allow users to log out, we’ll define methods to forget users in analogy with the ones to remember them. The resulting `user.forget` method just undoes `user.remember` by updating the remember digest with `null`
+To allow users to log out, we'll define methods to forget users in analogy with the ones to remember them. The resulting `user.forget` method just undoes `user.remember` by updating the remember digest with `null`
 
 `app/models/user.js`
 
@@ -335,7 +335,7 @@ module.exports = {
 
 There are two closely related subtleties left to address. The first subtlety is that, even though the “Log out” link appears only when logged-in, a user could potentially have multiple browser windows open to the site. If the user logged out in one window, thereby setting current_user to `null`, clicking the “Log out” link in a second window would result in an error because of `this.forget(req, this.current_user(req))` in the log_out method. We can avoid this by logging out only if the user is logged in.
 
-These are exactly the sorts of subtleties that benefit from test-driven development, so we’ll write tests to catch the two errors before correcting them.
+These are exactly the sorts of subtleties that benefit from test-driven development, so we'll write tests to catch the two errors before correcting them.
 
 `public/test/e2e_test/integration/users_login_test.js`
 
@@ -542,7 +542,7 @@ sessionsController.controller(
 }
 {% endhighlight %}
 
-Having edited the login form, we’re now ready to remember users if they check the checkbox and forget them otherwise.
+Having edited the login form, we're now ready to remember users if they check the checkbox and forget them otherwise.
 
 `app/controllers/sessions_controller.js`
 
@@ -569,7 +569,7 @@ module.exports = SessionsController;
 
 ### Remember tests
 
-To verify the behavior of the “remember me” checkbox, we’ll write two tests, one each for submitting with and without the checkbox checked.
+To verify the behavior of the “remember me” checkbox, we'll write two tests, one each for submitting with and without the checkbox checked.
 
 `public/test/e2e_test/integration/users_login_test.js`
 
@@ -618,7 +618,7 @@ describe('UsersLoginTest', function() {
 });
 {% endhighlight %}
 
-Assuming you didn’t make the same implementation mistake I did, the tests should be successful
+Assuming you didn't make the same implementation mistake I did, the tests should be successful
 
 {% highlight bash %}
 ~/sample_app $ protractor protractor.conf.js

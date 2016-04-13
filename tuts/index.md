@@ -17,7 +17,7 @@ This is a great tool for people who have ever used the Rails framework.
 
 Throughout this guide there are a number of small-but-handy pieces of
 information that can make using [trainjs](https://nodeontrain.xyz) easier, more interesting, and less
-hazardous. Here’s what to look out for.
+hazardous. Here's what to look out for.
 
 <div class="note">
   <h5>ProTips™ help you get more from <a href="https://nodeontrain.xyz">trainjs</a></h5>
@@ -41,7 +41,7 @@ hazardous. Here’s what to look out for.
 	are not yet released.</p>
 </div>
 
-If you come across anything along the way that we haven’t covered, or if you
+If you come across anything along the way that we haven't covered, or if you
 know of a tip you think others would find handy, please [file an
-issue](https://github.com/nodeontrain/trainjs/issues/new) and we’ll see about
+issue](https://github.com/nodeontrain/trainjs/issues/new) and we'll see about
 including it in this guide.

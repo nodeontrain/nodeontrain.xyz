@@ -10,7 +10,7 @@ In the context of web applications, authentication allows us to identify users o
 
 ### Requiring logged-in users
 
-To implement the forwarding behavior, we’ll use a before filter in the Users controller.
+To implement the forwarding behavior, we'll use a before filter in the Users controller.
 
 `app/controllers/users_controller.js`
 
@@ -75,7 +75,7 @@ sampleApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvide
 
 <img src="/img/tuts/authorization1.png" alt="authorization 1" width="100%" />
 
-Our test suite is currently failing. The reason is that the edit and update actions now require a logged-in user, but no user is logged in inside the corresponding tests. We’ll fix our test suite by logging the user in before hitting the edit or update actions.
+Our test suite is currently failing. The reason is that the edit and update actions now require a logged-in user, but no user is logged in inside the corresponding tests. We'll fix our test suite by logging the user in before hitting the edit or update actions.
 
 `public/test/e2e_test/integration/users_edit_test.js`
 
@@ -124,7 +124,7 @@ At this point, our test suite should be successful
 16 specs, 0 failures
 {% endhighlight %}
 
-Even though our test suite is now passing, we’re not finished with the before filter, because the suite is still successful even if we remove our security model, as you can verify by commenting it out
+Even though our test suite is now passing, we're not finished with the before filter, because the suite is still successful even if we remove our security model, as you can verify by commenting it out
 
 `app/controllers/users_controller.js`
 
@@ -139,7 +139,7 @@ function UsersController() {
 module.exports = UsersController;
 {% endhighlight %}
 
-So the test should definitely be failing. Because the before filter operates on a per-action basis, we’ll put the corresponding tests in the Users controller test. The plan is to hit the edit action with the right kinds of requests and verify that the flash is set and that the user is redirected to the login path.
+So the test should definitely be failing. Because the before filter operates on a per-action basis, we'll put the corresponding tests in the Users controller test. The plan is to hit the edit action with the right kinds of requests and verify that the flash is set and that the user is redirected to the login path.
 
 `public/test/e2e_test/controllers/users_controller_test.js`
 
@@ -196,9 +196,9 @@ With that, our test suite should be successful
 
 ### Requiring the right user
 
-Of course, requiring users to log in isn’t quite enough; users should only be allowed to edit their own information.
+Of course, requiring users to log in isn't quite enough; users should only be allowed to edit their own information.
 
-In order to make sure users can’t edit other users’ information, we need to be able to log in as a second user.
+In order to make sure users can't edit other users' information, we need to be able to log in as a second user.
 
 `public/test/e2e_test/controllers/users_controller_test.js`
 
@@ -234,7 +234,7 @@ describe('usersControllerTest', function() {
 })
 {% endhighlight %}
 
-To redirect users trying to edit another user’s profile, we’ll add a second method called correct_user, together with a before filter to call it
+To redirect users trying to edit another user's profile, we'll add a second method called correct_user, together with a before filter to call it
 
 `app/controllers/users_controller.js`
 
@@ -389,7 +389,7 @@ describe('UsersEditTest', function() {
 })
 {% endhighlight %}
 
-Now that we have a failing test, we’re ready to implement friendly forwarding. In order to forward users to their intended destination, we need to store the state of the requested page somewhere, and then redirect to that state instead of to the default. We accomplish this with a pair of methods, `store_location` and `redirect_back_or`, both defined in the `sessionHelper`
+Now that we have a failing test, we're ready to implement friendly forwarding. In order to forward users to their intended destination, we need to store the state of the requested page somewhere, and then redirect to that state instead of to the default. We accomplish this with a pair of methods, `store_location` and `redirect_back_or`, both defined in the `sessionHelper`
 
 `public/app.js`
 
@@ -501,7 +501,7 @@ sessionsController.controller(
 );
 {% endhighlight %}
 
-As usual, it’s a good idea to verify that the test suite is successful before proceeding
+As usual, it's a good idea to verify that the test suite is successful before proceeding
 
 {% highlight bash %}
 ~/sample_app $ protractor protractor.conf.js

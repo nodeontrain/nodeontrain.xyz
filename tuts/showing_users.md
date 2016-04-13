@@ -6,7 +6,7 @@ next_section: signup_form
 permalink: /tuts/showing_users/
 ---
 
-In this section, we’ll take the first steps toward the final profile by making a page to display a user’s name and profile photo. Our eventual goal for the user profile pages is to show the user’s profile image, basic user data, and a list of microposts. We’ll complete this task, and with it the sample application, in ["Following users" Chapter](https://nodeontrain.xyz/tuts/relationship_model/).
+In this section, we'll take the first steps toward the final profile by making a page to display a user's name and profile photo. Our eventual goal for the user profile pages is to show the user's profile image, basic user data, and a list of microposts. We'll complete this task, and with it the sample application, in ["Following users" Chapter](https://nodeontrain.xyz/tuts/relationship_model/).
 
 ### A Users resource
 
@@ -27,7 +27,7 @@ In order to make a user profile page, we need to have a user in the database. Ha
 	 ...
 {% endhighlight %}
 
-When following REST principles, resources are typically referenced using the resource name and a unique identifier. What this means in the context of users—which we’re now thinking of as a Users resource—is that we should view the user with id 1 by issuing a GET request to the URL `/users/1`.
+When following REST principles, resources are typically referenced using the resource name and a unique identifier. What this means in the context of users—which we're now thinking of as a Users resource—is that we should view the user with id 1 by issuing a GET request to the URL `/users/1`.
 
 We can get the routing for `/users/1` to work by running a single command
 
@@ -46,7 +46,7 @@ module.exports = [
 ];
 {% endhighlight %}
 
-We’ll use the standard [trainjs](https://nodeontrain.xyz) location for showing a user, which is `public/partials/users/show.html`
+We'll use the standard [trainjs](https://nodeontrain.xyz) location for showing a user, which is `public/partials/users/show.html`
 
 <figure class="highlight"><pre><code class="language-html" data-lang="html">&#123;&#123; user.name &#125;&#125;, &#123;&#123; user.email &#125;&#125;</code></pre></figure>
 
@@ -182,7 +182,7 @@ gravatarForDirective.directive('gravatarFor',['md5', function(md5) {
 }]);
 {% endhighlight %}
 
-As noted in the Gravatar documentation, Gravatar URLs are based on an MD5 hash of the user’s email address. In the demo, the MD5 hashing algorithm is implemented using the `angular-md5` library
+As noted in the Gravatar documentation, Gravatar URLs are based on an MD5 hash of the user's email address. In the demo, the MD5 hashing algorithm is implemented using the `angular-md5` library
 
 {% highlight bash %}
 ~/sample_app $ npm install angular-md5 --save
@@ -199,11 +199,11 @@ As noted in the Gravatar documentation, Gravatar URLs are based on an MD5 hash o
 ...
 {% endhighlight %}
 
-The profile page appears above, which shows the default Gravatar image, which appears because `thanh@example.com` isn’t a real email address.
+The profile page appears above, which shows the default Gravatar image, which appears because `thanh@example.com` isn't a real email address.
 
 <img src="/img/tuts/showing_users1.png" alt="showing users 1" width="100%" />
 
-To get our application to display a custom Gravatar, we’ll use `update` to change the user’s email to something I control
+To get our application to display a custom Gravatar, we'll use `update` to change the user's email to something I control
 
 {% highlight javascript %}
 > require('trainjs').initServer()
@@ -212,7 +212,7 @@ To get our application to display a custom Gravatar, we’ll use `update` to cha
 > user.update({ name: "Example User", email: "example@railstutorial.org", password: "foobar", password_confirmation: "foobar" })
 {% endhighlight %}
 
-Here we’ve assigned the user the email address example@railstutorial.org, which I’ve associated with the Rails Tutorial logo
+Here we've assigned the user the email address example@railstutorial.org, which I've associated with the Rails Tutorial logo
 
 <img src="/img/tuts/showing_users2.png" alt="showing users 2" width="100%" />
 

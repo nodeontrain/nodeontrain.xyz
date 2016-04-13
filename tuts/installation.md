@@ -14,7 +14,7 @@ describing the issue you encountered and how we might make the process easier.
 ### Requirements
 
 Installing [trainjs](https://nodeontrain.xyz) is easy and straight-forward, but there are a few requirements
-you’ll need to make sure your system has before you start.
+you'll need to make sure your system has before you start.
 
 - [Node.js 5.x](http://nodejs.org)
 - Linux, Unix, Mac OS X, or Windows

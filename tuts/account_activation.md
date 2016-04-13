@@ -6,19 +6,19 @@ next_section: password_reset
 permalink: /tuts/account_activation/
 ---
 
-At present, newly registered users immediately have full access to [their accounts](https://nodeontrain.xyz/tuts/successful_signups). In this section, we’ll implement an account activation step to verify that the user controls the email address they used to sign up. This will involve associating an activation token and digest with a user, sending the user an email with a link including the token, and activating the user upon clicking the link.
+At present, newly registered users immediately have full access to [their accounts](https://nodeontrain.xyz/tuts/successful_signups). In this section, we'll implement an account activation step to verify that the user controls the email address they used to sign up. This will involve associating an activation token and digest with a user, sending the user an email with a link including the token, and activating the user upon clicking the link.
 
 Our strategy for handling account activation parallels [user login](https://nodeontrain.xyz/tuts/logging_in/) and especially [remembering users](https://nodeontrain.xyz/tuts/logging_in/). The basic sequence appears as follows:
 
 	1. Start users in an “unactivated” state.
 	2. When a user signs up, generate an activation token and corresponding activation digest.
-	3. Save the activation digest to the database, and then send an email to the user with a link containing the activation token and user’s email address.
+	3. Save the activation digest to the database, and then send an email to the user with a link containing the activation token and user's email address.
 	4. When the user clicks the link, find the user by email address, and then authenticate the token by comparing with the activation digest.
 	5. If the user is authenticated, change the status from "unactivated" to "activated".
 
 ### Account activations resource
 
-As with [sessions](https://nodeontrain.xyz/tuts/sessions/), we’ll model account activations as a resource even though they won’t be associated with an model. Instead, we’ll include the relevant data in the User model. Nevertheless, we’ll interact with account activations via a standard REST URL; because the activation link will be modifying the user’s activation status, we’ll plan to use the update action.
+As with [sessions](https://nodeontrain.xyz/tuts/sessions/), we'll model account activations as a resource even though they won't be associated with an model. Instead, we'll include the relevant data in the User model. Nevertheless, we'll interact with account activations via a standard REST URL; because the activation link will be modifying the user's activation status, we'll plan to use the update action.
 
 {% highlight bash %}
 ~/sample_app $ trainjs generate service AccountActivations update
@@ -36,7 +36,7 @@ module.exports = [
 ];
 {% endhighlight %}
 
-Although we won’t use it in this tutorial, we’ll record the time and date of the activation in case we want it for future reference.
+Although we won't use it in this tutorial, we'll record the time and date of the activation in case we want it for future reference.
 
 {% highlight bash %}
 ~/sample_app $ sequelize migration:create --name add_activation_to_users
@@ -107,7 +107,7 @@ We then apply the migration as usual
 ~/sample_app $ sequelize db:migrate
 {% endhighlight %}
 
-Because every newly signed-up user will require activation, we should assign an activation token and digest to each user object before it’s created. We saw a similar idea in ["User validations" Section](https://nodeontrain.xyz/tuts/user_validations/#uniqueness-validation), where we needed to convert an email address to lower-case before saving a user to the database.
+Because every newly signed-up user will require activation, we should assign an activation token and digest to each user object before it's created. We saw a similar idea in ["User validations" Section](https://nodeontrain.xyz/tuts/user_validations/#uniqueness-validation), where we needed to convert an email address to lower-case before saving a user to the database.
 
 `app/models/user.js`
 
@@ -219,7 +219,7 @@ To apply the changes, reset the database to reseed the data as usual
 
 ### Account activation mailer method
 
-With the data modeling complete, we’re now ready to add the code needed to send an account activation email. To send email, we’ll use Mailjet
+With the data modeling complete, we're now ready to add the code needed to send an account activation email. To send email, we'll use Mailjet
 
 {% highlight bash %}
 ~/sample_app $ npm install node-mailjet --save
@@ -338,7 +338,7 @@ usersController.controller(
 ...
 {% endhighlight %}
 
-Because redirects to the root URL instead of to the profile page and doesn’t log the user in as before, the test suite is currently failing, even though the application is working as designed. We’ll fix this by editing the test suite.
+Because redirects to the root URL instead of to the profile page and doesn't log the user in as before, the test suite is currently failing, even though the application is working as designed. We'll fix this by editing the test suite.
 
 `public/test/e2e_test/integration/users_signup_test.js`
 
@@ -375,7 +375,7 @@ var user = ModelSync( User.findOne({ where: {email: req.body.email.toLowerCase()
 if (user && !user.errors && user.authenticated('activation', req.params.id))
 {% endhighlight %}
 
-The above code uses the `authenticated` method to test if the account activation digest matches the given token, but at present this won’t work because that method is specialized to the remember token. We can generalize the method by adding a function argument with the name of the digest, and then use string interpolation
+The above code uses the `authenticated` method to test if the account activation digest matches the given token, but at present this won't work because that method is specialized to the remember token. We can generalize the method by adding a function argument with the name of the digest, and then use string interpolation
 
 `app/models/user.js`
 
@@ -450,7 +450,7 @@ At this point, the tests should be successful
   19 passing (400ms)
 {% endhighlight %}
 
-With the `authenticated` method, we’re now ready to write an `update` action that authenticates the user corresponding to the email address in the params hash
+With the `authenticated` method, we're now ready to write an `update` action that authenticates the user corresponding to the email address in the params hash
 
 `app/controllers/account_activations_controller.js`
 
@@ -523,7 +523,7 @@ You should now be able to click in the URL from the email to activate the releva
 
 <img src="/img/tuts/account_activation2.png" alt="account_activation2" width="100%" />
 
-Of course, currently user activation doesn’t actually do anything, because we haven’t changed how users log in. In order to have account activation mean something, we need to allow users to log in only if they are activated.
+Of course, currently user activation doesn't actually do anything, because we haven't changed how users log in. In order to have account activation mean something, we need to allow users to log in only if they are activated.
 
 `app/controllers/sessions_controller.js`
 
@@ -588,7 +588,7 @@ sessionsController.controller(
 
 ### Activation test and refactoring
 
-In this section, we’ll add an integration test for account activation.
+In this section, we'll add an integration test for account activation.
 
 `public/test/e2e_test/integration/users_signup_test.js`
 
@@ -659,7 +659,7 @@ At this point, the test suite should be successful
 27 specs, 0 failures
 {% endhighlight %}
 
-With the test, we’re ready to refactor a little by moving some of the user manipulation out of the controller and into the model. In particular, we’ll make an `activate` method to update the user’s activation attributes and a `send_activation_email` to send the activation email.
+With the test, we're ready to refactor a little by moving some of the user manipulation out of the controller and into the model. In particular, we'll make an `activate` method to update the user's activation attributes and a `send_activation_email` to send the activation email.
 
 `app/models/user.js`
 

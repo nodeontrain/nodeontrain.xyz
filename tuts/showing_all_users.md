@@ -6,13 +6,13 @@ next_section: deleting_users
 permalink: /tuts/showing_all_users/
 ---
 
-In this section, we’ll add the index action, which is designed to display all the users instead of just one. Along the way, we’ll learn how to seed the database with sample users and how to paginate the user output so that the index page can scale up to display a potentially large number of users. In ["Deleting users" Section](https://nodeontrain.xyz/tuts/deleting_users/), we’ll add an administrative interface to the users index so that users can also be destroyed.
+In this section, we'll add the index action, which is designed to display all the users instead of just one. Along the way, we'll learn how to seed the database with sample users and how to paginate the user output so that the index page can scale up to display a potentially large number of users. In ["Deleting users" Section](https://nodeontrain.xyz/tuts/deleting_users/), we'll add an administrative interface to the users index so that users can also be destroyed.
 
 ### Users index
 
-To get started with the users index, we’ll first implement a security model. Although we’ll keep individual user `show` pages visible to all site visitors, the user `index` will be restricted to logged-in users so that there’s a limit to how much unregistered users can see by default.
+To get started with the users index, we'll first implement a security model. Although we'll keep individual user `show` pages visible to all site visitors, the user `index` will be restricted to logged-in users so that there's a limit to how much unregistered users can see by default.
 
-To protect the `index` page from unauthorized access, we’ll first add a short test to verify that the `index` action is redirected properly.
+To protect the `index` page from unauthorized access, we'll first add a short test to verify that the `index` action is redirected properly.
 
 `public/test/e2e_test/controllers/users_controller_test.js`
 
@@ -59,7 +59,7 @@ function UsersController() {
 module.exports = UsersController;
 {% endhighlight %}
 
-To display the users themselves, we need to make a variable containing all the site’s users and then render each one by iterating through them in the index view. As you may recall from the corresponding action in the toy app, we can use `User.findAll` to pull all the users out of the database, assigning them to an `users` instance variable for use in the view.
+To display the users themselves, we need to make a variable containing all the site's users and then render each one by iterating through them in the index view. As you may recall from the corresponding action in the toy app, we can use `User.findAll` to pull all the users out of the database, assigning them to an `users` instance variable for use in the view.
 
 `app/controllers/users_controller.js`
 
@@ -98,7 +98,7 @@ userService.factory('User', ['$resource', function($resource){
 }]);
 {% endhighlight %}
 
-To make the actual index page, we’ll make a view that iterates through the users and wraps each one in an `li` tag.
+To make the actual index page, we'll make a view that iterates through the users and wraps each one in an `li` tag.
 
 `public/app.js`
 
@@ -183,7 +183,7 @@ gravatarForDirective.directive('gravatarFor',['md5', function(md5) {
 }]);
 {% endhighlight %}
 
-Let’s also add a little CSS for style
+Let's also add a little CSS for style
 
 `public/assets/stylesheets/custom.css`
 
@@ -202,7 +202,7 @@ Let’s also add a little CSS for style
 {% endhighlight %}
 
 
-Finally, we’ll add the URL to the users link in the site’s navigation header using `users_index`
+Finally, we'll add the URL to the users link in the site's navigation header using `users_index`
 
 `public/partials/layouts/_header.html`
 
@@ -229,13 +229,13 @@ With that, the users index is fully functional, with all tests successful
 
 ### Sample users
 
-First, we’ll install the Faker, which will allow us to make sample users with semi-realistic names and email addresses
+First, we'll install the Faker, which will allow us to make sample users with semi-realistic names and email addresses
 
 {% highlight bash %}
 ~/sample_app $ npm install --save faker
 {% endhighlight %}
 
-Next, we’ll add a seed with sample users
+Next, we'll add a seed with sample users
 
 `db/seeds.js`
 
@@ -286,7 +286,7 @@ We can reset the database and then run seeds.js
 
 ### Pagination
 
-Our original user doesn’t suffer from loneliness any more, but now we have the opposite problem: our user has too many companions, and they all appear on the same page. Right now there are a hundred, which is already a reasonably large number, and on a real site it could be thousands. The solution is to paginate the users, so that (for example) only 30 show up on a page at any one time.
+Our original user doesn't suffer from loneliness any more, but now we have the opposite problem: our user has too many companions, and they all appear on the same page. Right now there are a hundred, which is already a reasonably large number, and on a real site it could be thousands. The solution is to paginate the users, so that (for example) only 30 show up on a page at any one time.
 
 {% highlight bash %}
 ~/sample_app $ npm install angular-ui-bootstrap --save
@@ -427,7 +427,7 @@ module.exports = UsersController;
 
 ### Users index test
 
-Now that our users index page is working, we’ll write a lightweight test for it
+Now that our users index page is working, we'll write a lightweight test for it
 
 `public/test/e2e_test/integration/users_index_test.js`
 

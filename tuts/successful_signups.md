@@ -6,13 +6,13 @@ next_section: sessions
 permalink: /tuts/successful_signups/
 ---
 
-Having handled invalid form submissions, now it’s time to complete the signup form by actually saving a new user (if valid) to the database. If it fails, we simply fall back on the behavior developed in ["Unsuccessful signups" Section](https://nodeontrain.xyz/tuts/unsuccessful_signups/).
+Having handled invalid form submissions, now it's time to complete the signup form by actually saving a new user (if valid) to the database. If it fails, we simply fall back on the behavior developed in ["Unsuccessful signups" Section](https://nodeontrain.xyz/tuts/unsuccessful_signups/).
 
 ### The finished signup form
 
 To complete a working signup form, we need to fill in the commented-out section in `public/controllers/users_controller.js` with the appropriate behavior.
 
-Rather than render a page on successful user creation, we’ll instead redirect to a different page.
+Rather than render a page on successful user creation, we'll instead redirect to a different page.
 
 `public/controllers/users_controller.js`
 
@@ -41,7 +41,7 @@ usersController.controller(
 
 ### The flash
 
-Our signup form is actually working, but before submitting a valid registration in a browser we’re going to add a bit of polish common in web applications: a message that appears on the subsequent page (in this case, welcoming our new user to the application) and then disappears upon visiting a second page or on page reload.
+Our signup form is actually working, but before submitting a valid registration in a browser we're going to add a bit of polish common in web applications: a message that appears on the subsequent page (in this case, welcoming our new user to the application) and then disappears upon visiting a second page or on page reload.
 
 To display a temporary message we use a helper called the flash
 
@@ -171,7 +171,7 @@ We can now check our database just to double-check that the new user was actuall
 
 ### A test for valid submission
 
-Before moving on, we’ll write a test for valid submission to verify our application’s behavior and catch regressions. As with the test for invalid submission in ["Unsuccessful signups" Section](https://nodeontrain.xyz/tuts/unsuccessful_signups/#a-test-for-invalid-submission), our main purpose is to verify the contents of the database.
+Before moving on, we'll write a test for valid submission to verify our application's behavior and catch regressions. As with the test for invalid submission in ["Unsuccessful signups" Section](https://nodeontrain.xyz/tuts/unsuccessful_signups/#a-test-for-invalid-submission), our main purpose is to verify the contents of the database.
 
 `public/test/e2e_test/integration/users_signup_test.js`
 
