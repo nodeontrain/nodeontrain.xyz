@@ -122,8 +122,6 @@ To fix this, we just need to add the user id presence validation
 var Sequelize = require('sequelize');
 var sequelize = CONFIG.database;
 
-var User = require('./user.js');
-
 var Micropost = sequelize.define('micropost', {
 	content: {
 		type: Sequelize.TEXT,
@@ -135,7 +133,7 @@ var Micropost = sequelize.define('micropost', {
 			notEmpty: true
 		},
 		references: {
-			model: User,
+			model: 'user',
 			key: 'id'
 		}
 	},
@@ -213,8 +211,6 @@ describe('MicropostTest', function () {
 var Sequelize = require('sequelize');
 var sequelize = CONFIG.database;
 
-var User = require('./user.js');
-
 var Micropost = sequelize.define('micropost', {
 	content: {
 		type: Sequelize.TEXT,
@@ -231,7 +227,7 @@ var Micropost = sequelize.define('micropost', {
 			notEmpty: true
 		},
 		references: {
-			model: User,
+			model: 'user',
 			key: 'id'
 		}
 	},
