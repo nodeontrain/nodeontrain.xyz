@@ -346,6 +346,8 @@ describe('PasswordResetsTest', function() {
 		browser.get(current_url);
 
 		var forgotPassword = function() {
+            current_url = 'http://localhost:1337/#/password_resets/new';
+			browser.get(current_url);
 			element(by.css('[name="email"]')).sendKeys('user@example.com');
 			element(by.css('[name="commit"]')).click();
 			expect(browser.getCurrentUrl()).toContain('#/home');
@@ -642,13 +644,15 @@ describe('PasswordResetsTest', function() {
 		browser.get(current_url);
 
 		var forgotPassword = function() {
+            current_url = 'http://localhost:1337/#/password_resets/new';
+			browser.get(current_url);
 			// Invalid email
 			element(by.css('[name="email"]')).sendKeys('');
 			element(by.css('[name="commit"]')).click();
 			expect( element.all(by.css('.has-error')).count() ).toEqual(1);
 
 			// Inactive user
-			var current_url = 'http://localhost:1337/#/password_resets/' + user.reset_token + '/edit?email=' + user.email;
+			current_url = 'http://localhost:1337/#/password_resets/' + user.reset_token + '/edit?email=' + user.email;
 			browser.get(current_url);
 			expect(browser.getCurrentUrl()).toContain('#/home');
 

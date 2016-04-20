@@ -289,7 +289,7 @@ describe('usersControllerTest', function() {
 		browser.executeAsyncScript(function(callback) {
 			var $injector = angular.injector([ 'userService' ]);
 			var User = $injector.get( 'User' );
-			User.delete({id: 10}, function(user){
+			User.delete({id: 100}, function(user){
 				callback(user);
 			}, function(error){
 				callback(error);
@@ -323,7 +323,7 @@ describe('usersControllerTest', function() {
 		browser.executeAsyncScript(function(callback) {
 			var $injector = angular.injector([ 'userService' ]);
 			var User = $injector.get( 'User' );
-			User.delete({id: 10}, function(user){
+			User.delete({id: 100}, function(user){
 				callback(user);
 			}, function(error){
 				callback(error);

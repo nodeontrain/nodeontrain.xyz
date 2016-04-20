@@ -585,7 +585,7 @@ describe('UsersLoginTest', function() {
 
 		element(by.css('[name="email"]')).sendKeys('user@example.com');
 		element(by.css('[name="password"]')).sendKeys('password');
-		element(by.css('[name="remember_me"]')).click();
+		element(by.id('session_remember_me-label')).click();
 		element(by.css('[name="commit"]')).click();
 
 		expect( browser.getCurrentUrl() ).toContain('#/users/');

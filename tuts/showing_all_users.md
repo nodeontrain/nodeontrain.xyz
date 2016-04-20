@@ -297,7 +297,6 @@ Our original user doesn't suffer from loneliness any more, but now we have the o
 {% highlight html %}
 ...
 <link rel="stylesheet" href="assets/stylesheets/custom.css">
-
 <link rel="stylesheet" href="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css">
 ...
 <script src="../node_modules/angular-form-for/dist/form-for.bootstrap-templates.js"></script>
