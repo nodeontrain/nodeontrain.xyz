@@ -12,12 +12,6 @@ Although we don't yet have a way to create microposts through the web - that com
 
 Our plan is to display the microposts for each user on their respective profile page, together with a running count of how many microposts they've made. As we'll see, many of the ideas are similar to our work in ["Showing all users Section"](https://nodeontrain.xyz/tuts/showing_all_users/) on showing all users.
 
-Although we won't need the Microposts controller until ["Manipulating microposts Section"](https://nodeontrain.xyz/tuts/manipulating_microposts/), we will need the views directory in just a moment, so let's generate the controller now.
-
-{% highlight bash %}
-~/sample_app $ trainjs generate controller Microposts
-{% endhighlight %}
-
 `public/partials/microposts/_micropost.html`
 
 <figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;a</span> <span class="na">href</span> <span class="na">ui-sref=</span><span class="s">"user_detail({id: user.id})"</span> <span class="na">ui-sref-opts=</span><span class="s">"{reload: true}"</span><span class="nt">&gt;</span>

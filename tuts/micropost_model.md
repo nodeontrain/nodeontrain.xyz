@@ -8,13 +8,6 @@ permalink: /tuts/micropost_model/
 
 We begin the Microposts resource by creating a Micropost model, which captures the essential characteristics of microposts. What follows builds on the work from ["The Microposts resource Section"](https://nodeontrain.xyz/tuts/microposts_resource/); as with the model in that section, our new Micropost model will include data validations and an association with the User model. Unlike that model, the present Micropost model will be fully tested, and will also have a default ordering and automatic destruction if its parent user is destroyed.
 
-<div class="note info">
-  <h5><a href="https://nodeontrain.xyz">trainjs</a></h5>
-  <p>
-	You should always update <a href="https://nodeontrain.xyz">trainjs</a> for this tutorial.
-  </p>
-</div>
-
 ### The basic model
 
 The Micropost model needs only two attributes: a content attribute to hold the micropost's content and a user_id to associate a micropost with a particular user.
