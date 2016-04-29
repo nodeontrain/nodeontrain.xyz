@@ -132,7 +132,7 @@ Gravatar is a free service that allows users to upload images and associate them
 `public/partials/users/show.html`
 
 <figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;h1&gt;</span>
-	<span class="nt">&lt;img</span> <span class="na">gravatar_for=</span><span class="s">"user"</span> <span class="nt">/&gt;</span>
+	<span class="nt">&lt;img</span> <span class="na">gravatar_for=</span><span class="s">"&#123;&#123; user.email &#125;&#125;"</span> <span class="na">alt=</span><span class="s">"&#123;&#123; user.name &#125;&#125;"</span> <span class="nt">/&gt;</span>
 	&#123;&#123; user.name &#125;&#125;
 <span class="nt">&lt;/h1&gt;</span></code></pre></figure>
 
@@ -172,11 +172,9 @@ gravatarForDirective.directive('gravatarFor',['md5', function(md5) {
 	return {
 		restrict: 'A',
 		link: function(scope, elem, attrs) {
-			var user = scope[attrs.gravatarFor];
-			var gravatar_id = md5.createHash(user.email.toLowerCase());
+			var gravatar_id = md5.createHash(attrs.gravatarFor.toLowerCase());
 			var gravatar_url = "https://secure.gravatar.com/avatar/" + gravatar_id;
 			elem.attr('src', gravatar_url);
-			elem.attr('alt', user.name);
 		}
 	};
 }]);
@@ -223,7 +221,7 @@ We include `row` and `col-md-4` classes in the user show page
 	<span class="nt">&lt;aside</span> <span class="na">class=</span><span class="s">"col-md-4"</span><span class="nt">&gt;</span>
 		<span class="nt">&lt;section</span> <span class="na">class=</span><span class="s">"user_info"</span><span class="nt">&gt;</span>
 			<span class="nt">&lt;h1&gt;</span>
-				<span class="nt">&lt;img</span> <span class="na">gravatar_for=</span><span class="s">"user"</span> <span class="nt">/&gt;</span>
+				<span class="nt">&lt;img</span> <span class="na">gravatar_for=</span><span class="s">"&#123;&#123; user.email &#125;&#125;"</span> <span class="na">alt=</span><span class="s">"&#123;&#123; user.name &#125;&#125;"</span> <span class="nt">/&gt;</span>
 				&#123;&#123; user.name &#125;&#125;
 			<span class="nt">&lt;/h1&gt;</span>
 		<span class="nt">&lt;/section&gt;</span>

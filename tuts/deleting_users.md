@@ -34,6 +34,8 @@ var User = sequelize.define('user', {
 ...
 {% endhighlight %}
 
+As usual, we add the admin attribute with a migration
+
 {% highlight bash %}
 ~/sample_app $ sequelize migration:create --name add_admin_to_users
 {% endhighlight %}
@@ -121,21 +123,19 @@ The final step needed to complete the Users resource is to add delete links and 
 
 `public/partials/users/index.html`
 
-{% highlight html %}
-<h1>All users</h1>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;h1&gt;</span>All users<span class="nt">&lt;/h1&gt;</span>
 
-<uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" max-size="5" class="pagination-sm" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage"></uib-pagination>
+<span class="nt">&lt;uib-pagination</span> <span class="na">total-items=</span><span class="s">"totalItems"</span> <span class="na">ng-model=</span><span class="s">"currentPage"</span> <span class="na">ng-change=</span><span class="s">"pageChanged()"</span> <span class="na">max-size=</span><span class="s">"5"</span> <span class="na">class=</span><span class="s">"pagination-sm"</span> <span class="na">boundary-link-numbers=</span><span class="s">"true"</span> <span class="na">rotate=</span><span class="s">"false"</span> <span class="na">items-per-page=</span><span class="s">"itemsPerPage"</span><span class="nt">&gt;&lt;/uib-pagination&gt;</span>
 
-<ul class="users">
-	<li ng-repeat="user in users">
-		<img gravatar_for="user" options-size="50" />
-		<a href ui-sref="user_detail({id: user.id})" ui-sref-opts="{reload: true}">{{ user.name }}</a>
-		<span ng-if="current_user.id != user.id && current_user.admin"> | <a href ng-click="deleteUser(user.id)">delete</a></span>
-	</li>
-</ul>
+<span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"users"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;li</span> <span class="na">ng-repeat=</span><span class="s">"user in users"</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;img</span> <span class="na">gravatar_for=</span><span class="s">"&#123;&#123; user.email &#125;&#125;"</span> <span class="na">alt=</span><span class="s">"&#123;&#123; user.name &#125;&#125;"</span> <span class="na">options-size=</span><span class="s">"50"</span> <span class="nt">/&gt;</span>
+		<span class="nt">&lt;a</span> <span class="na">href</span> <span class="na">ui-sref=</span><span class="s">"user_detail({id: user.id})"</span> <span class="na">ui-sref-opts=</span><span class="s">"{reload: true}"</span><span class="nt">&gt;</span>&#123;&#123; user.name &#125;&#125;<span class="nt">&lt;/a&gt;</span>
+		<span class="nt">&lt;span</span> <span class="na">ng-if=</span><span class="s">"current_user.id != user.id &amp;&amp; current_user.admin"</span><span class="nt">&gt;</span> | <span class="nt">&lt;a</span> <span class="na">href</span> <span class="na">ng-click=</span><span class="s">"deleteUser(user.id)"</span><span class="nt">&gt;</span>delete<span class="nt">&lt;/a&gt;&lt;/span&gt;</span>
+	<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
 
-<uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" max-size="5" class="pagination-sm" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage"></uib-pagination>
-{% endhighlight %}
+<span class="nt">&lt;uib-pagination</span> <span class="na">total-items=</span><span class="s">"totalItems"</span> <span class="na">ng-model=</span><span class="s">"currentPage"</span> <span class="na">ng-change=</span><span class="s">"pageChanged()"</span> <span class="na">max-size=</span><span class="s">"5"</span> <span class="na">class=</span><span class="s">"pagination-sm"</span> <span class="na">boundary-link-numbers=</span><span class="s">"true"</span> <span class="na">rotate=</span><span class="s">"false"</span> <span class="na">items-per-page=</span><span class="s">"itemsPerPage"</span><span class="nt">&gt;&lt;/uib-pagination&gt;</span></code></pre></figure>
 
 `public/controllers/users_controller.js`
 

@@ -15,7 +15,7 @@ Our plan is to display the microposts for each user on their respective profile 
 `public/partials/microposts/_micropost.html`
 
 <figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;a</span> <span class="na">href</span> <span class="na">ui-sref=</span><span class="s">"user_detail({id: user.id})"</span> <span class="na">ui-sref-opts=</span><span class="s">"{reload: true}"</span><span class="nt">&gt;</span>
-	<span class="nt">&lt;img</span> <span class="na">class=</span><span class="s">"gravatar"</span> <span class="na">gravatar_for=</span><span class="s">"user"</span> <span class="na">options-size=</span><span class="s">"50"</span> <span class="nt">/&gt;</span>
+	<span class="nt">&lt;img</span> <span class="na">class=</span><span class="s">"gravatar"</span> <span class="na">gravatar_for=</span><span class="s">"&#123;&#123; user.email &#125;&#125;"</span> <span class="na">alt=</span><span class="s">"&#123;&#123; user.name &#125;&#125;"</span> <span class="na">options-size=</span><span class="s">"50"</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;/a&gt;</span>
 <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"user"</span><span class="nt">&gt;</span>
 	<span class="nt">&lt;a</span> <span class="na">href</span> <span class="na">ui-sref=</span><span class="s">"user_detail({id: user.id})"</span> <span class="na">ui-sref-opts=</span><span class="s">"{reload: true}"</span><span class="nt">&gt;</span>
@@ -110,7 +110,7 @@ Adding microposts to the user show page.
 	<span class="nt">&lt;aside</span> <span class="na">class=</span><span class="s">"col-md-4"</span><span class="nt">&gt;</span>
 		<span class="nt">&lt;section</span> <span class="na">class=</span><span class="s">"user_info"</span><span class="nt">&gt;</span>
 			<span class="nt">&lt;h1&gt;</span>
-				<span class="nt">&lt;img</span> <span class="na">gravatar_for=</span><span class="s">"user"</span> <span class="nt">/&gt;</span>
+				<span class="nt">&lt;img</span> <span class="na">gravatar_for=</span><span class="s">"&#123;&#123; user.email &#125;&#125;"</span> <span class="na">alt=</span><span class="s">"&#123;&#123; user.name &#125;&#125;"</span> <span class="nt">/&gt;</span>
 				&#123;&#123; user.name &#125;&#125;
 			<span class="nt">&lt;/h1&gt;</span>
 		<span class="nt">&lt;/section&gt;</span>
@@ -299,7 +299,7 @@ describe('UsersProfileTest', function() {
 
 			expect(browser.getTitle()).toEqual('Example User | Node On Train Tutorial Sample App');
 			expect( element(by.css('.user_info > h1')).getText() ).toEqual('Example User');
-			expect( element(by.css('.user_info > h1 > img[gravatar_for="user"]')).isDisplayed() ).toBeTruthy();
+			expect( element(by.css('.user_info > h1 > img[gravatar_for]')).isDisplayed() ).toBeTruthy();
 			expect( element(by.css('[ng-if="user.microposts.count"] > h3')).getText() ).toContain('50');
 			expect( element.all(by.css('.pagination-page')).count() ).toBeGreaterThan(0);
 			done();

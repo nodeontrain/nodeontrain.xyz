@@ -234,35 +234,33 @@ The view for the user index.
 
 `public/partials/users/index.html`
 
-{% highlight html %}
-<p notice id="notice"></p>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;p</span> <span class="na">notice</span> <span class="na">id=</span><span class="s">"notice"</span><span class="nt">&gt;&lt;/p&gt;</span>
 
-<h1>Listing Users</h1>
+<span class="nt">&lt;h1&gt;</span>Listing Users<span class="nt">&lt;/h1&gt;</span>
 
-<table>
-	<thead>
-		<tr>
-		<th>Name</th>
-		<th>Email</th>
-		<th colspan="3"></th>
-		</tr>
-	</thead>
+<span class="nt">&lt;table&gt;</span>
+	<span class="nt">&lt;thead&gt;</span>
+		<span class="nt">&lt;tr&gt;</span>
+		<span class="nt">&lt;th&gt;</span>Name<span class="nt">&lt;/th&gt;</span>
+		<span class="nt">&lt;th&gt;</span>Email<span class="nt">&lt;/th&gt;</span>
+		<span class="nt">&lt;th</span> <span class="na">colspan=</span><span class="s">"3"</span><span class="nt">&gt;&lt;/th&gt;</span>
+		<span class="nt">&lt;/tr&gt;</span>
+	<span class="nt">&lt;/thead&gt;</span>
 
-	<tbody>
-		<tr ng-repeat="user in users">
-		<td>{{ user.name }}</td>
-		<td>{{ user.email }}</td>
-		<td><a href ui-sref="user_detail({id: user.id})">Show</a></td>
-		<td><a href ui-sref="user_form({id: user.id})">Edit</a></td>
-		<td><a href ng-click="deleteUser(user.id)">Delete</a></td>
-		</tr>
-	</tbody>
-</table>
+	<span class="nt">&lt;tbody&gt;</span>
+		<span class="nt">&lt;tr</span> <span class="na">ng-repeat=</span><span class="s">"user in users"</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;td&gt;</span>&#123;&#123; user.name &#125;&#125;<span class="nt">&lt;/td&gt;</span>
+		<span class="nt">&lt;td&gt;</span>&#123;&#123; user.email &#125;&#125;<span class="nt">&lt;/td&gt;</span>
+		<span class="nt">&lt;td&gt;&lt;a</span> <span class="na">href</span> <span class="na">ui-sref=</span><span class="s">"user_detail({id: user.id})"</span><span class="nt">&gt;</span>Show<span class="nt">&lt;/a&gt;&lt;/td&gt;</span>
+		<span class="nt">&lt;td&gt;&lt;a</span> <span class="na">href</span> <span class="na">ui-sref=</span><span class="s">"user_form({id: user.id})"</span><span class="nt">&gt;</span>Edit<span class="nt">&lt;/a&gt;&lt;/td&gt;</span>
+		<span class="nt">&lt;td&gt;&lt;a</span> <span class="na">href</span> <span class="na">ng-click=</span><span class="s">"deleteUser(user.id)"</span><span class="nt">&gt;</span>Delete<span class="nt">&lt;/a&gt;&lt;/td&gt;</span>
+		<span class="nt">&lt;/tr&gt;</span>
+	<span class="nt">&lt;/tbody&gt;</span>
+<span class="nt">&lt;/table&gt;</span>
 
-<br>
+<span class="nt">&lt;br&gt;</span>
 
-<a href ui-sref="user_form({id: 'new'})">New User</a>
-{% endhighlight %}
+<span class="nt">&lt;a</span> <span class="na">href</span> <span class="na">ui-sref=</span><span class="s">"user_form({id: 'new'})"</span><span class="nt">&gt;</span>New User<span class="nt">&lt;/a&gt;</span></code></pre></figure>
 
 
 Next, we can the local web server using `trainjs server` (or `trainjs s`).

@@ -150,16 +150,14 @@ usersController.controller(
 
 `public/partials/users/index.html`
 
-{% highlight html %}
-<h1>All users</h1>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;h1&gt;</span>All users<span class="nt">&lt;/h1&gt;</span>
 
-<ul class="users">
-	<li ng-repeat="user in users">
-		<img gravatar_for="user" options-size="50" />
-		<a href ui-sref="user_detail({id: user.id})" ui-sref-opts="{reload: true}">{{ user.name }}</a>
-	</li>
-</ul>
-{% endhighlight %}
+<span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"users"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;li</span> <span class="na">ng-repeat=</span><span class="s">"user in users"</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;img</span> <span class="na">gravatar_for=</span><span class="s">"&#123;&#123; user.email &#125;&#125;"</span> <span class="na">alt=</span><span class="s">"&#123;&#123; user.name &#125;&#125;"</span> <span class="na">options-size=</span><span class="s">"50"</span> <span class="nt">/&gt;</span>
+		<span class="nt">&lt;a</span> <span class="na">href</span> <span class="na">ui-sref=</span><span class="s">"user_detail({id: user.id})"</span> <span class="na">ui-sref-opts=</span><span class="s">"{reload: true}"</span><span class="nt">&gt;</span>&#123;&#123; user.name &#125;&#125;<span class="nt">&lt;/a&gt;</span>
+	<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span></code></pre></figure>
 
 `public/directives/gravatar_for.js`
 
@@ -170,14 +168,12 @@ gravatarForDirective.directive('gravatarFor',['md5', function(md5) {
 	return {
 		restrict: 'A',
 		link: function(scope, elem, attrs) {
-			var user = scope[attrs.gravatarFor];
-			var gravatar_id = md5.createHash(user.email.toLowerCase());
+			var gravatar_id = md5.createHash(attrs.gravatarFor.toLowerCase());
 			var size = 50;
 			if (elem.attr('options-size'))
 				size = elem.attr('options-size');
 			var gravatar_url = "https://secure.gravatar.com/avatar/" + gravatar_id + "?s=" + size;
 			elem.attr('src', gravatar_url);
-			elem.attr('alt', user.name);
 		}
 	};
 }]);
@@ -346,20 +342,18 @@ sampleApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvide
 
 `public/partials/users/index.html`
 
-{% highlight html %}
-<h1>All users</h1>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;h1&gt;</span>All users<span class="nt">&lt;/h1&gt;</span>
 
-<uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" max-size="5" class="pagination-sm" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage"></uib-pagination>
+<span class="nt">&lt;uib-pagination</span> <span class="na">total-items=</span><span class="s">"totalItems"</span> <span class="na">ng-model=</span><span class="s">"currentPage"</span> <span class="na">ng-change=</span><span class="s">"pageChanged()"</span> <span class="na">max-size=</span><span class="s">"5"</span> <span class="na">class=</span><span class="s">"pagination-sm"</span> <span class="na">boundary-link-numbers=</span><span class="s">"true"</span> <span class="na">rotate=</span><span class="s">"false"</span> <span class="na">items-per-page=</span><span class="s">"itemsPerPage"</span><span class="nt">&gt;&lt;/uib-pagination&gt;</span>
 
-<ul class="users">
-	<li ng-repeat="user in users">
-		<img gravatar_for="user" options-size="50" />
-		<a href ui-sref="user_detail({id: user.id})" ui-sref-opts="{reload: true}">{{ user.name }}</a>
-	</li>
-</ul>
+<span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"users"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;li</span> <span class="na">ng-repeat=</span><span class="s">"user in users"</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;img</span> <span class="na">gravatar_for=</span><span class="s">"&#123;&#123; user.email &#125;&#125;"</span> <span class="na">alt=</span><span class="s">"&#123;&#123; user.name &#125;&#125;"</span> <span class="na">options-size=</span><span class="s">"50"</span> <span class="nt">/&gt;</span>
+		<span class="nt">&lt;a</span> <span class="na">href</span> <span class="na">ui-sref=</span><span class="s">"user_detail({id: user.id})"</span> <span class="na">ui-sref-opts=</span><span class="s">"{reload: true}"</span><span class="nt">&gt;</span>&#123;&#123; user.name &#125;&#125;<span class="nt">&lt;/a&gt;</span>
+	<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
 
-<uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" max-size="5" class="pagination-sm" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage"></uib-pagination>
-{% endhighlight %}
+<span class="nt">&lt;uib-pagination</span> <span class="na">total-items=</span><span class="s">"totalItems"</span> <span class="na">ng-model=</span><span class="s">"currentPage"</span> <span class="na">ng-change=</span><span class="s">"pageChanged()"</span> <span class="na">max-size=</span><span class="s">"5"</span> <span class="na">class=</span><span class="s">"pagination-sm"</span> <span class="na">boundary-link-numbers=</span><span class="s">"true"</span> <span class="na">rotate=</span><span class="s">"false"</span> <span class="na">items-per-page=</span><span class="s">"itemsPerPage"</span><span class="nt">&gt;&lt;/uib-pagination&gt;</span></code></pre></figure>
 
 `public/controllers/users_controller.js`
 

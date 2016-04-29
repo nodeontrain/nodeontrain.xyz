@@ -59,27 +59,25 @@ usersController.controller(
 
 `public/partials/users/edit.html`
 
-{% highlight html %}
-<h1>Update your profile</h1>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;h1&gt;</span>Update your profile<span class="nt">&lt;/h1&gt;</span>
 
-<div class="row">
-	<div class="col-md-6 col-md-offset-3">
-		<form form-for="user" submit-with="saveUser()" validation-rules="validation_rules">
-			<div error-messages ng-if="error_messages" id="error_explanation"></div>
-			<text-field required attribute="name" label="Name" type="text"></text-field>
-			<text-field attribute="email" label="Email" type="email"></text-field>
-			<text-field attribute="password" label="Password" type="password"></text-field>
-			<text-field attribute="password_confirmation" label="Password Confirmation" type="password"></text-field>
-			<input class="btn btn-primary" name="commit" type="submit" value="Save changes" />
-		</form>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-6 col-md-offset-3"</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;form</span> <span class="na">form-for=</span><span class="s">"user"</span> <span class="na">submit-with=</span><span class="s">"saveUser()"</span> <span class="na">validation-rules=</span><span class="s">"validation_rules"</span><span class="nt">&gt;</span>
+			<span class="nt">&lt;div</span> <span class="na">error-messages</span> <span class="na">ng-if=</span><span class="s">"error_messages"</span> <span class="na">id=</span><span class="s">"error_explanation"</span><span class="nt">&gt;&lt;/div&gt;</span>
+			<span class="nt">&lt;text-field</span> <span class="na">required</span> <span class="na">attribute=</span><span class="s">"name"</span> <span class="na">label=</span><span class="s">"Name"</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;&lt;/text-field&gt;</span>
+			<span class="nt">&lt;text-field</span> <span class="na">attribute=</span><span class="s">"email"</span> <span class="na">label=</span><span class="s">"Email"</span> <span class="na">type=</span><span class="s">"email"</span><span class="nt">&gt;&lt;/text-field&gt;</span>
+			<span class="nt">&lt;text-field</span> <span class="na">attribute=</span><span class="s">"password"</span> <span class="na">label=</span><span class="s">"Password"</span> <span class="na">type=</span><span class="s">"password"</span><span class="nt">&gt;&lt;/text-field&gt;</span>
+			<span class="nt">&lt;text-field</span> <span class="na">attribute=</span><span class="s">"password_confirmation"</span> <span class="na">label=</span><span class="s">"Password Confirmation"</span> <span class="na">type=</span><span class="s">"password"</span><span class="nt">&gt;&lt;/text-field&gt;</span>
+			<span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">"btn btn-primary"</span> <span class="na">name=</span><span class="s">"commit"</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Save changes"</span> <span class="nt">/&gt;</span>
+		<span class="nt">&lt;/form&gt;</span>
 
-		<div class="gravatar_edit">
-			<img gravatar_for="user" />
-			<a href="http://gravatar.com/emails" target="_blank">change</a>
-		</div>
-	</div>
-</div>
-{% endhighlight %}
+		<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"gravatar_edit"</span><span class="nt">&gt;</span>
+			<span class="nt">&lt;img</span> <span class="na">gravatar_for=</span><span class="s">"&#123;&#123; user.email &#125;&#125;"</span> <span class="na">alt=</span><span class="s">"&#123;&#123; user.name &#125;&#125;"</span> <span class="nt">/&gt;</span>
+			<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://gravatar.com/emails"</span> <span class="na">target=</span><span class="s">"_blank"</span><span class="nt">&gt;</span>change<span class="nt">&lt;/a&gt;</span>
+		<span class="nt">&lt;/div&gt;</span>
+	<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></figure>
 
 <img src="/img/tuts/updating_users1.png" alt="updating users 1" width="100%" />
 

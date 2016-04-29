@@ -110,32 +110,30 @@ usersController.controller(
 
 `public/index.html`
 
-{% highlight html %}
-<!DOCTYPE html>
-<html ng-app="sampleApp">
-<head>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">ng-app=</span><span class="s">"sampleApp"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
 	...
 
-	<script src="helpers/flash_helper.js"></script>
+	<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"helpers/flash_helper.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
 
-	<script src="controllers/static_pages_controller.js"></script>
-	<script src="controllers/users_controller.js"></script>
-	<script src="services/user.js"></script>
-	<script src="app.js"></script>
-</head>
-<body>
-	<header class="navbar navbar-fixed-top navbar-inverse" ng-include="'partials/layouts/_header.html'">
-	</header>
-	<div class="container">
-		<div ng-repeat="message in flash" class="alert alert-{{ message.type }}">{{ message.content }}</div>
-		<div ui-view></div>
-		<footer class="footer" ng-include="'partials/layouts/_footer.html'">
-		</footer>
-	</div>
-</body>
+	<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"controllers/static_pages_controller.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+	<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"controllers/users_controller.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+	<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"services/user.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+	<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"app.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+	<span class="nt">&lt;header</span> <span class="na">class=</span><span class="s">"navbar navbar-fixed-top navbar-inverse"</span> <span class="na">ng-include=</span><span class="s">"'partials/layouts/_header.html'"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;/header&gt;</span>
+	<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;div</span> <span class="na">ng-repeat=</span><span class="s">"message in flash"</span> <span class="na">class=</span><span class="s">"alert alert-&#123;&#123; message.type &#125;&#125;"</span><span class="nt">&gt;</span>&#123;&#123; message.content &#125;&#125;<span class="nt">&lt;/div&gt;</span>
+		<span class="nt">&lt;div</span> <span class="na">ui-view</span><span class="nt">&gt;&lt;/div&gt;</span>
+		<span class="nt">&lt;footer</span> <span class="na">class=</span><span class="s">"footer"</span> <span class="na">ng-include=</span><span class="s">"'partials/layouts/_footer.html'"</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;/footer&gt;</span>
+	<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
 
-</html>
-{% endhighlight %}
+<span class="nt">&lt;/html&gt;</span></code></pre></figure>
 
 ### The first signup
 
