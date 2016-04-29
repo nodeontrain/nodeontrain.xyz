@@ -19,7 +19,7 @@ Our plan is to display the microposts for each user on their respective profile 
 <span class="nt">&lt;/a&gt;</span>
 <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"user"</span><span class="nt">&gt;</span>
 	<span class="nt">&lt;a</span> <span class="na">href</span> <span class="na">ui-sref=</span><span class="s">"user_detail({id: micropost.user.id})"</span> <span class="na">ui-sref-opts=</span><span class="s">"{reload: true}"</span><span class="nt">&gt;</span>
-		&#123;&#123; user.name &#125;&#125;
+		&#123;&#123; micropost.user.name &#125;&#125;
 	<span class="nt">&lt;/a&gt;</span>
 <span class="nt">&lt;/span&gt;</span>
 <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"content"</span><span class="nt">&gt;</span>&#123;&#123; micropost.content &#125;&#125;<span class="nt">&lt;/span&gt;</span>
