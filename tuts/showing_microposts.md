@@ -14,11 +14,11 @@ Our plan is to display the microposts for each user on their respective profile 
 
 `public/partials/microposts/_micropost.html`
 
-<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;a</span> <span class="na">href</span> <span class="na">ui-sref=</span><span class="s">"user_detail({id: user.id})"</span> <span class="na">ui-sref-opts=</span><span class="s">"{reload: true}"</span><span class="nt">&gt;</span>
-	<span class="nt">&lt;img</span> <span class="na">class=</span><span class="s">"gravatar"</span> <span class="na">gravatar_for=</span><span class="s">"&#123;&#123; user.email &#125;&#125;"</span> <span class="na">alt=</span><span class="s">"&#123;&#123; user.name &#125;&#125;"</span> <span class="na">options-size=</span><span class="s">"50"</span> <span class="nt">/&gt;</span>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;a</span> <span class="na">href</span> <span class="na">ui-sref=</span><span class="s">"user_detail({id: micropost.user.id})"</span> <span class="na">ui-sref-opts=</span><span class="s">"{reload: true}"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;img</span> <span class="na">class=</span><span class="s">"gravatar"</span> <span class="na">gravatar_for=</span><span class="s">"&#123;&#123; micropost.user.email &#125;&#125;"</span> <span class="na">alt=</span><span class="s">"&#123;&#123; micropost.user.name &#125;&#125;"</span> <span class="na">options-size=</span><span class="s">"50"</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;/a&gt;</span>
 <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"user"</span><span class="nt">&gt;</span>
-	<span class="nt">&lt;a</span> <span class="na">href</span> <span class="na">ui-sref=</span><span class="s">"user_detail({id: user.id})"</span> <span class="na">ui-sref-opts=</span><span class="s">"{reload: true}"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;a</span> <span class="na">href</span> <span class="na">ui-sref=</span><span class="s">"user_detail({id: micropost.user.id})"</span> <span class="na">ui-sref-opts=</span><span class="s">"{reload: true}"</span><span class="nt">&gt;</span>
 		&#123;&#123; user.name &#125;&#125;
 	<span class="nt">&lt;/a&gt;</span>
 <span class="nt">&lt;/span&gt;</span>
@@ -87,7 +87,13 @@ function UsersController() {
 	this.show = function(req, res, next) {
 		var offset = (req.query.page - 1) * req.query.limit;
 		var user = ModelSync( User.findById(req.params.id) );
-		var microposts = ModelSync( Micropost.findAndCountAll({ where: { user_id: user.id }, offset: offset, limit: req.query.limit }) );
+		var microposts = ModelSync( Micropost.findAndCountAll({
+			where: { user_id: user.id },
+			include: [ { model: User } ],
+			order: 'micropost.createdAt DESC',
+			offset: offset,
+			limit: req.query.limit
+		}) );
 		res.end(JSON.stringify({
 			id: user.id,
 			email: user.email,
