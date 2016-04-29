@@ -104,6 +104,39 @@ module.exports = UsersController;
 
 Adding microposts to the user show page.
 
+`public/app.js`
+
+{% highlight javascript %}
+...
+
+sampleApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+	$urlRouterProvider.otherwise('/home');
+	$stateProvider
+	...
+	.state('user_detail', {
+		url: '/users/:id?page&limit',
+		templateUrl: 'partials/users/show.html',
+		resolve: {
+			current_user: current_user,
+			user: ['$q', '$stateParams', 'User', function($q, $stateParams, User){
+				var page = $stateParams.page ? $stateParams.page : 1;
+				var limit = $stateParams.limit ? $stateParams.limit : 30;
+				var deferred = $q.defer();
+				User.get({id: $stateParams.id, page: page, limit: limit}, function(user) {
+					deferred.resolve(user);
+				}, function(error) {
+					deferred.reject();
+				});
+				return deferred.promise;
+			}]
+		},
+		controller: 'UsersDetailCtrl'
+	})
+	...
+}]);
+...
+{% endhighlight %}
+
 `public/partials/users/show.html`
 
 <figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
@@ -148,7 +181,6 @@ usersController.controller(
 );
 ...
 {% endhighlight %}
-
 
 ### Sample microposts
 
