@@ -97,11 +97,23 @@ We change the new user page for the new routes
 describe('usersControllerTest', function() {
 
 	it('should get new', function() {
-		var current_url = 'http://localhost:1337/#/signup';
-		browser.get(current_url);
-		expect(browser.getCurrentUrl()).toContain('#/signup');
-		expect( element(by.css('body')).getText() ).not.toEqual('');
-	});
+		var test = function() {
+			var current_url = 'http://localhost:1337/#/signup';
+			browser.get(current_url);
+			expect(browser.getCurrentUrl()).toContain('#/signup');
+			expect( element(by.css('body')).getText() ).not.toEqual('');
+		};
+
+		element.all(by.css('[ui-sref="login"]')).isDisplayed().then(function(result) {
+		    if ( result.length > 0 ) {
+		        test();
+		    } else {
+		    	element(by.css('.dropdown')).click();
+				element(by.css('[ui-sref="logout"]')).click();
+		        test();
+		    }
+		});
+	})
 
 });
 {% endhighlight %}
