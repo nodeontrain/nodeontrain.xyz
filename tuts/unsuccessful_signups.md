@@ -130,7 +130,7 @@ As in the console session above, the failed save generates a list of error messa
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
 		<form form-for="user" submit-with="saveUser()" validation-rules="validation_rules">
-			<div error-messages ng-if="error_messages" id="error_explanation"></div>
+			<div error-messages ng-if="error_messages" ng-model="error_messages" id="error_explanation"></div>
 			<text-field required attribute="name" label="Name" type="text"></text-field>
 			<text-field attribute="email" label="Email" type="email"></text-field>
 			<text-field attribute="password" label="Password" type="password"></text-field>
@@ -152,20 +152,26 @@ messageDirective.directive('errorMessages', function() {
 	return {
 		restrict: 'A',
 		link: function(scope, elem, attrs) {
-			var mess_div = angular.element('<div/>');
-			mess_div.attr('class', 'alert alert-danger');
-			mess_div.text('The form contains ' + pluralize('error', scope.error_messages.length, true) );
+			var render_messages = function() {
+				var mess_div = angular.element('<div/>');
+				mess_div.attr('class', 'alert alert-danger');
+				mess_div.text('The form contains ' + pluralize('error', scope.error_messages.length, true) );
+	
+				var mess_ul = angular.element('<ul/>');
+				for (var i in scope.error_messages) {
+					var msg = scope.error_messages[i].message;
+					var mess_li = angular.element('<li/>');
+					mess_li.text(msg);
+					mess_ul.append(mess_li);
+				}
+	
+				elem.append( mess_div );
+				elem.append( mess_ul );
+			};
 
-			var mess_ul = angular.element('<ul/>');
-			for (var i in scope.error_messages) {
-				var msg = scope.error_messages[i].message;
-				var mess_li = angular.element('<li/>');
-				mess_li.text(msg);
-				mess_ul.append(mess_li);
-			}
-
-			elem.append( mess_div );
-			elem.append( mess_ul );
+			scope.$watch(attrs.ngModel, function() {
+				render_messages();
+			}, true);
 		}
 	};
 });

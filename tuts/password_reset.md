@@ -161,7 +161,7 @@ A new password reset view.
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
 		<form form-for="password_reset" submit-with="forgotPassword()" validation-rules="validation_rules">
-			<div error-messages ng-if="error_messages" id="error_explanation"></div>
+			<div error-messages ng-if="error_messages" ng-model="error_messages" id="error_explanation"></div>
 			<field-label label="Email"></field-label>
 			<text-field attribute="email" type="email"></text-field>
 			<input class="btn btn-primary" name="commit" type="submit" value="Submit" />
@@ -387,7 +387,7 @@ To get links of the reset form to work, we need a form for resetting passwords. 
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
 		<form form-for="password_reset" submit-with="resetPassword()" validation-rules="validation_rules">
-			<div error-messages ng-if="error_messages" id="error_explanation"></div>
+			<div error-messages ng-if="error_messages" ng-model="error_messages" id="error_explanation"></div>
 			<text-field attribute="email" type="hidden"></text-field>
 			<text-field attribute="password" label="Password" type="password"></text-field>
 			<text-field attribute="password_confirmation" label="Password Confirmation" type="password"></text-field>

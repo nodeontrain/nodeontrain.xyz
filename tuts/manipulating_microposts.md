@@ -8,13 +8,6 @@ permalink: /tuts/manipulating_microposts/
 
 Having finished both the data modeling and display templates for microposts, we now turn our attention to the interface for creating them through the web.
 
-<div class="note info">
-  <h5><a href="https://nodeontrain.xyz">trainjs</a></h5>
-  <p>
-	You should always update <a href="https://nodeontrain.xyz">trainjs</a> for this tutorial.
-  </p>
-</div>
-
 There is one break with past convention worth noting: the interface to the Microposts resource will run principally through the Profile and Home pages, so we won't need actions like new or edit in the Microposts controller; we'll need only create and destroy.
 
 {% highlight bash %}
@@ -351,7 +344,7 @@ We next define the form for creating microposts, which is similar to the signup 
 
 {% highlight html %}
 <form form-for="_micropost" submit-with="createMicropost()" validation-rules="validation_rules">
-	<div error-messages ng-if="error_messages" id="error_explanation"></div>
+	<div error-messages ng-if="error_messages" ng-model="error_messages" id="error_explanation"></div>
 	<text-field attribute="content" label="Content" multiline placeholder="Compose new micropost..."></text-field>
 	<input class="btn btn-primary" name="commit" type="submit" value="Post" />
 </form>
