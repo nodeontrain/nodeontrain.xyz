@@ -166,7 +166,7 @@ function MicropostsController() {
 
 	this.create = function(req, res, next) {
 		var current_user = sessionHelper.current_user(req);
-		var micropost = ModelSync( Micropost.create({content: req.body.content, user_id: current_user.id}) );
+		var micropost = ModelSync( current_user.createMicropost({content: req.body.content}) );
 		res.end(JSON.stringify(micropost));
 	};
 	this.destroy = function(req, res, next) {
@@ -610,7 +610,7 @@ function MicropostsController() {
 
 	this.create = function(req, res, next) {
 		var current_user = sessionHelper.current_user(req);
-		var micropost = ModelSync( Micropost.create({content: req.body.content, user_id: current_user.id}) );
+		var micropost = ModelSync( current_user.createMicropost({content: req.body.content}) );
 		res.end(JSON.stringify(micropost));
 	};
 	

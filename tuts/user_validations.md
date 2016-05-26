@@ -26,6 +26,7 @@ To test the model we use `mocha` framework
 
 {% highlight bash %}
 ~/sample_app $ sudo npm install -g mocha
+~/sample_app $ npm install mocha fibers
 {% endhighlight %}
 
 To write a test for a valid object, we'll create an initially valid User model object `user` using the special `beforeEach` method, which automatically gets run before each test. Because `user` is an instance variable, it's automatically available in all the tests, and we can test its validity using the validate() method

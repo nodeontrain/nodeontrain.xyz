@@ -49,7 +49,6 @@ module.exports = {
 
   }
 };
-
 {% endhighlight %}
 
 and migrate the development database
@@ -204,15 +203,24 @@ function MicropostsController() {
 					message = err.message;
 				res.end(JSON.stringify({errors: [{message: message}]}));
 			} else {
-				Micropost.create({
-					content: req.body.content,
-					user_id: current_user.id,
-					picture: req.file.path
-				}).then(function(data) {
-				    res.end(JSON.stringify(data));
-				}).catch(function(errors) {
-					res.end(JSON.stringify(errors));
-				});
+                if (req.file && req.file.path) {
+                    current_user.createMicropost({
+                        content: req.body.content,
+                        picture: req.file.path
+                    }).then(function(data) {
+                        res.end(JSON.stringify(data));
+                    }).catch(function(errors) {
+                        res.end(JSON.stringify(errors));
+                    });
+                } else {
+                    current_user.createMicropost({
+                        content: req.body.content
+                    }).then(function(data) {
+                        res.end(JSON.stringify(data));
+                    }).catch(function(errors) {
+                        res.end(JSON.stringify(errors));
+                    });
+                }
 			}
 		})
 	};
@@ -425,24 +433,33 @@ function MicropostsController() {
 					message = err.message;
 				res.end(JSON.stringify({errors: [{message: message}]}));
 			} else {
-				gm(req.file.path).resize(400, 400).write(req.file.path, function (err) {
-					if (err) {
-						var message = 'An error occurred when uploading';
-						if (err.message)
-							message = err.message;
-						res.end(JSON.stringify({errors: [{message: message}]}));
-					} else {
-						Micropost.create({
-							content: req.body.content,
-							user_id: current_user.id,
-							picture: req.file.path
-						}).then(function(data) {
-						    res.end(JSON.stringify(data));
-						}).catch(function(errors) {
-							res.end(JSON.stringify(errors));
-						});
-					}
-				});
+				if (req.file && req.file.path) {
+					gm(req.file.path).resize(400, 400).write(req.file.path, function (err) {
+						if (err) {
+							var message = 'An error occurred when uploading';
+							if (err.message)
+								message = err.message;
+							res.end(JSON.stringify({errors: [{message: message}]}));
+						} else {
+							current_user.createMicropost({
+								content: req.body.content,
+								picture: req.file.path
+							}).then(function(data) {
+							    res.end(JSON.stringify(data));
+							}).catch(function(errors) {
+								res.end(JSON.stringify(errors));
+							});
+						}
+					});
+				} else {
+					current_user.createMicropost({
+						content: req.body.content
+					}).then(function(data) {
+					    res.end(JSON.stringify(data));
+					}).catch(function(errors) {
+						res.end(JSON.stringify(errors));
+					});
+				}
 			}
 		})
 	};
