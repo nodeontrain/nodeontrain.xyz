@@ -267,7 +267,6 @@ User.create({
 		createUser();
 	});
 });
-
 {% endhighlight %}
 
 We can reset the database and then run seeds.js
