@@ -8,13 +8,6 @@ permalink: /tuts/micropost_images/
 
 Now that we've added support for all relevant micropost actions, in this section we'll make it possible for microposts to include images as well as text.
 
-<div class="note info">
-  <h5><a href="https://nodeontrain.xyz">trainjs</a></h5>
-  <p>
-	You should always update <a href="https://nodeontrain.xyz">trainjs</a> for this tutorial.
-  </p>
-</div>
-
 Adding image upload involves two main visible elements: a form field for uploading an image and the micropost images themselves.
 
 ### Basic image upload

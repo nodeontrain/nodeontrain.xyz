@@ -429,10 +429,10 @@ sampleApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvide
 		controller: 'StaticPagesHomeCtrl',
 		resolve: {
 			home_data: ['$q', '$stateParams', 'StaticPages', function($q, $stateParams, StaticPages){
-				var page = $stateParams.page ? $stateParams.page : 1;
-				var limit = $stateParams.limit ? $stateParams.limit : 30;
+				$stateParams.page = $stateParams.page ? $stateParams.page : 1;
+				$stateParams.limit = $stateParams.limit ? $stateParams.limit : 30;
 				var deferred = $q.defer();
-				StaticPages.get({id: 'home', page: page, limit: limit}, function(data) {
+				StaticPages.get({id: 'home', page: $stateParams.page, limit: $stateParams.limit}, function(data) {
 					deferred.resolve(data);
 				}, function(error) {
 					deferred.reject();
@@ -456,7 +456,7 @@ The status feed partial.
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="o">&lt;</span><span class="nx">ol</span> <span class="kr">class</span><span class="o">=</span><span class="s2">"microposts"</span><span class="o">&gt;</span>
 	<span class="o">&lt;</span><span class="nx">li</span> <span class="nx">ng</span><span class="o">-</span><span class="nx">repeat</span><span class="o">=</span><span class="s2">"micropost in feed_items.rows"</span> <span class="nx">id</span><span class="o">=</span><span class="s2">"micropost-&#123;&#123; micropost.id &#125;&#125;"</span> <span class="nx">ng</span><span class="o">-</span><span class="nx">include</span><span class="o">=</span><span class="s2">"'partials/microposts/_micropost.html'"</span><span class="o">&gt;&lt;</span><span class="sr">/li</span><span class="err">&gt;
 </span><span class="o">&lt;</span><span class="sr">/ol</span><span class="err">&gt;
-</span><span class="o">&lt;</span><span class="nx">uib</span><span class="o">-</span><span class="nx">pagination</span> <span class="nx">total</span><span class="o">-</span><span class="nx">items</span><span class="o">=</span><span class="s2">"totalItems"</span> <span class="nx">ng</span><span class="o">-</span><span class="nx">model</span><span class="o">=</span><span class="s2">"pagination.currentPage"</span> <span class="nx">ng</span><span class="o">-</span><span class="nx">change</span><span class="o">=</span><span class="s2">"pageChanged()"</span> <span class="nx">max</span><span class="o">-</span><span class="nx">size</span><span class="o">=</span><span class="s2">"5"</span> <span class="kr">class</span><span class="o">=</span><span class="s2">"pagination-sm"</span> <span class="nx">boundary</span><span class="o">-</span><span class="nx">link</span><span class="o">-</span><span class="nx">numbers</span><span class="o">=</span><span class="s2">"true"</span> <span class="nx">rotate</span><span class="o">=</span><span class="s2">"false"</span> <span class="nx">items</span><span class="o">-</span><span class="nx">per</span><span class="o">-</span><span class="nx">page</span><span class="o">=</span><span class="s2">"itemsPerPage"</span><span class="o">&gt;&lt;</span><span class="sr">/uib-pagination&gt;</span></code></pre></figure>
+</span><span class="o">&lt;</span><span class="nx">uib</span><span class="o">-</span><span class="nx">pagination</span> <span class="nx">total</span><span class="o">-</span><span class="nx">items</span><span class="o">=</span><span class="s2">"totalItems"</span> <span class="nx">ng</span><span class="o">-</span><span class="nx">model</span><span class="o">=</span><span class="s2">"currentPage"</span> <span class="nx">ng</span><span class="o">-</span><span class="nx">change</span><span class="o">=</span><span class="s2">"pageChanged()"</span> <span class="nx">max</span><span class="o">-</span><span class="nx">size</span><span class="o">=</span><span class="s2">"5"</span> <span class="kr">class</span><span class="o">=</span><span class="s2">"pagination-sm"</span> <span class="nx">boundary</span><span class="o">-</span><span class="nx">link</span><span class="o">-</span><span class="nx">numbers</span><span class="o">=</span><span class="s2">"true"</span> <span class="nx">rotate</span><span class="o">=</span><span class="s2">"false"</span> <span class="nx">items</span><span class="o">-</span><span class="nx">per</span><span class="o">-</span><span class="nx">page</span><span class="o">=</span><span class="s2">"itemsPerPage"</span><span class="o">&gt;&lt;</span><span class="sr">/uib-pagination&gt;</span></code></pre></figure>
 
 Adding a status feed to the Home page.
 
@@ -494,16 +494,6 @@ staticPagesController.controller(
 		};
 
 		$scope.totalItems = home_data.feed_items ? home_data.feed_items.count : 0;
-		$scope.pagination = {
-			currentPage: $stateParams.page ? $stateParams.page : 1
-		};
-		$scope.itemsPerPage = $stateParams.limit ? $stateParams.limit : 30;
-		$scope.pageChanged = function() {
-			$stateParams.page = $scope.pagination.currentPage;
-			$state.transitionTo($state.current, $stateParams, {
-				reload: true, inherit: false, notify: true
-			});
-		};
 	}]
 );
 

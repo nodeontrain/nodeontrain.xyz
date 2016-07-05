@@ -125,10 +125,10 @@ sampleApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvide
 		resolve: {
 			current_user: current_user,
 			user: ['$q', '$stateParams', 'User', function($q, $stateParams, User){
-				var page = $stateParams.page ? $stateParams.page : 1;
-				var limit = $stateParams.limit ? $stateParams.limit : 30;
+				$stateParams.page = $stateParams.page ? $stateParams.page : 1;
+				$stateParams.limit = $stateParams.limit ? $stateParams.limit : 30;
 				var deferred = $q.defer();
-				User.get({id: $stateParams.id, page: page, limit: limit}, function(user) {
+				User.get({id: $stateParams.id, page: $stateParams.page, limit: $stateParams.limit}, function(user) {
 					deferred.resolve(user);
 				}, function(error) {
 					deferred.reject();
@@ -159,7 +159,7 @@ sampleApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvide
 		<span class="nt">&lt;ol</span> <span class="na">class=</span><span class="s">"microposts"</span><span class="nt">&gt;</span>
 			<span class="nt">&lt;li</span> <span class="na">ng-repeat=</span><span class="s">"micropost in user.microposts.rows"</span> <span class="na">id=</span><span class="s">"micropost-"</span> <span class="na">ng-include=</span><span class="s">"'partials/microposts/_micropost.html'"</span><span class="nt">&gt;&lt;/li&gt;</span>
 		<span class="nt">&lt;/ol&gt;</span>
-		<span class="nt">&lt;uib-pagination</span> <span class="na">total-items=</span><span class="s">"totalItems"</span> <span class="na">ng-model=</span><span class="s">"pagination.currentPage"</span> <span class="na">ng-change=</span><span class="s">"pageChanged()"</span> <span class="na">max-size=</span><span class="s">"5"</span> <span class="na">class=</span><span class="s">"pagination-sm"</span> <span class="na">boundary-link-numbers=</span><span class="s">"true"</span> <span class="na">rotate=</span><span class="s">"false"</span> <span class="na">items-per-page=</span><span class="s">"itemsPerPage"</span><span class="nt">&gt;&lt;/uib-pagination&gt;</span>
+		<span class="nt">&lt;uib-pagination</span> <span class="na">total-items=</span><span class="s">"totalItems"</span> <span class="na">ng-model=</span><span class="s">"currentPage"</span> <span class="na">ng-change=</span><span class="s">"pageChanged()"</span> <span class="na">max-size=</span><span class="s">"5"</span> <span class="na">class=</span><span class="s">"pagination-sm"</span> <span class="na">boundary-link-numbers=</span><span class="s">"true"</span> <span class="na">rotate=</span><span class="s">"false"</span> <span class="na">items-per-page=</span><span class="s">"itemsPerPage"</span><span class="nt">&gt;&lt;/uib-pagination&gt;</span>
 	<span class="nt">&lt;/div&gt;</span>
 <span class="nt">&lt;/div&gt;</span></code></pre></figure>
 
@@ -174,17 +174,6 @@ usersController.controller(
 		$scope.user = user;
 
 		$scope.totalItems = user.microposts.count;
-		$scope.pagination = {
-			currentPage: $stateParams.page ? $stateParams.page : 1
-		};
-		$scope.itemsPerPage = $stateParams.limit ? $stateParams.limit : 30;
-
-		$scope.pageChanged = function() {
-			$stateParams.page = $scope.pagination.currentPage;
-			$state.transitionTo($state.current, $stateParams, {
-				reload: true, inherit: false, notify: true
-			});
-		};
 	}]
 );
 ...

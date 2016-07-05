@@ -230,7 +230,7 @@ var User = sequelize.define('user', {
 	instanceMethods: {
 		...
 		follow: function(user) {
-			return ModelSync(this.setFollowing(user));
+			return ModelSync(this.addFollowing(user));
 		},
 		unfollow: function(user) {
 			return ModelSync(this.removeFollowing(user));

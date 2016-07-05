@@ -299,6 +299,30 @@ Our original user doesn't suffer from loneliness any more, but now we have the o
 <script src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
 <script src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
 ...
+<script src="directives/pagination.js"></script>
+...
+{% endhighlight %}
+
+`public/directives/pagination.js`
+
+{% highlight javascript %}
+var paginationDirective = angular.module('paginationDirective', []);
+
+paginationDirective.directive('uibPagination', ['$state', '$stateParams', function($state, $stateParams) {
+	return {
+		restrict: 'E',
+		link: function(scope, elem, attrs) {
+			scope.currentPage = $stateParams.page;
+			scope.itemsPerPage = $stateParams.limit;
+			scope.pageChanged = function() {
+				$stateParams.page = scope.currentPage;
+				$state.transitionTo($state.current, $stateParams, {
+					reload: true, inherit: false, notify: true
+				});
+			};
+		}
+	};
+}]);
 {% endhighlight %}
 
 `public/app.js`
@@ -308,6 +332,8 @@ Our original user doesn't suffer from loneliness any more, but now we have the o
 var sampleApp = angular.module('sampleApp', [
 	'ui.router',
 	'ui.bootstrap',
+	...
+	'paginationDirective',
 	...
 ]);
 ...
@@ -323,10 +349,10 @@ sampleApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvide
 		resolve: {
 			user: current_user,
 			users: ['$q', '$stateParams', 'User', function($q, $stateParams, User){
-				var page = $stateParams.page ? $stateParams.page : 1;
-				var limit = $stateParams.limit ? $stateParams.limit : 30;
+				$stateParams.page = $stateParams.page ? $stateParams.page : 1;
+				$stateParams.limit = $stateParams.limit ? $stateParams.limit : 30;
 				var deferred = $q.defer();
-				User.query({page: page, limit: limit}, function(user) {
+				User.query({page: $stateParams.page, limit: $stateParams.limit}, function(user) {
 					deferred.resolve(user);
 				}, function(error) {
 					deferred.reject();
@@ -364,15 +390,6 @@ usersController.controller(
 		$scope.users = users.rows;
 
 		$scope.totalItems = users.count;
-		$scope.currentPage = $stateParams.page ? $stateParams.page : 1;
-		$scope.itemsPerPage = $stateParams.limit ? $stateParams.limit : 30;
-
-		$scope.pageChanged = function() {
-			$stateParams.page = $scope.currentPage;
-			$state.transitionTo($state.current, $stateParams, {
-				reload: true, inherit: false, notify: true
-			});
-		};
 	}]
 );
 {% endhighlight %}

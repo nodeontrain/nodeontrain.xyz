@@ -97,6 +97,7 @@ We change the new user page for the new routes
 describe('usersControllerTest', function() {
 
 	it('should get new', function() {
+		browser.get('http://localhost:1337/#/signup');
 		var test = function() {
 			var current_url = 'http://localhost:1337/#/signup';
 			browser.get(current_url);
