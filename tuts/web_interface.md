@@ -19,7 +19,7 @@ In the introduction to this chapter, we saw a preview of the page flow for user 
 
 ### Sample following data
 
-As in previous chapters, we will find it convenient to use the seed data Rake task to fill the database with sample relationships. This will allow us to design the look and feel of the web pages first, deferring the back-end functionality until later in this section.
+As in previous chapters, we will find it convenient to use the seed data to fill the database with sample relationships. This will allow us to design the look and feel of the web pages first, deferring the back-end functionality until later in this section.
 
 `db/seeds.js`
 
