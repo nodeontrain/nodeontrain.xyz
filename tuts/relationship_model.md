@@ -270,6 +270,10 @@ var User = sequelize.define('user', {
 
 A test for following and followers
 
+{% highlight bash %}
+~/sample_app $ npm install fibers --save
+{% endhighlight %}
+
 `test/models/user_test.js`
 
 {% highlight javascript %}

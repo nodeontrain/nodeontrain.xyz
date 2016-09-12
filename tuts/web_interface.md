@@ -181,7 +181,7 @@ function StaticPagesController() {
 			var following = ModelSync( current_user.getFollowing({attributes: [[sequelize.fn('COUNT', sequelize.col('*')), 'count']]}) )[0];
 			var followers = ModelSync( current_user.getFollowers({attributes: [[sequelize.fn('COUNT', sequelize.col('*')), 'count']]}) )[0];
 			var offset = (req.query.page - 1) * req.query.limit;
-			var feed_items = current_user.feed({offset: offset, limit: req.query.limit});
+			var feed_items = ModelSync( current_user.feed({offset: offset, limit: req.query.limit}) );
 			var microposts_count = ModelSync( Micropost.count({ where: { user_id: current_user.id } }) );
 			res.end(JSON.stringify({
 				id: current_user.id,

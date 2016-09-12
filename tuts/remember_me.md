@@ -196,6 +196,60 @@ var User = sequelize.define('user', {
 
 We're now in a position to remember a logged-in user, which we'll do by adding a remember helper to go along with log_in
 
+{% highlight bash %}
+~/sample_app $ npm install cookies --sav
+{% endhighlight %}
+
+`app.js`
+
+{% highlight javascript %}
+var connect = require('connect');
+var bodyParser = require('body-parser');
+var cookieSession = require('cookie-session');
+var Cookies = require( 'cookies' );
+
+var app = connect();
+
+app.use(bodyParser.json());
+
+app.use(cookieSession({
+	keys: ['1234567890QWERTY']
+}));
+
+app.use(function (req, res, next) {
+	try {
+		if (!req.cookies)
+			req.cookies = new Cookies(req, res);
+		next();
+	} catch (ex) {
+		next();
+	}
+});
+
+module.exports = app;
+{% endhighlight %}
+
+`app/helpers/sessions_helper.js`
+
+{% highlight javascript %}
+module.exports = {
+	log_in: function(req, user) {
+		req.session.user_id = user.id;
+	},
+	remember: function(req, user) {
+		user.remember();
+		req.cookies.set( "user_id", user.id, { expires: new Date(Date.now() + 20 * 365 * 24 * 3600000) } );
+		req.cookies.set( "remember_token", user.remember_token, { expires: new Date(Date.now() + 20 * 365 * 24 * 3600000) } );
+	},
+	current_user: function(req) {
+		return ModelSync( User.findById(req.session.user_id) );
+	},
+	log_out: function(req) {
+		delete req.session.user_id;
+	}
+};
+{% endhighlight %}
+
 `app/controllers/sessions_controller.js`
 
 {% highlight javascript %}
@@ -224,28 +278,6 @@ function SessionsController() {
 
 module.exports = SessionsController;
 {% endhighlight %}
-
-`app/helpers/sessions_helper.js`
-
-{% highlight javascript %}
-module.exports = {
-	log_in: function(req, user) {
-		req.session.user_id = user.id;
-	},
-	remember: function(req, user) {
-		user.remember();
-		req.cookies.set( "user_id", user.id, { expires: new Date(Date.now() + 20 * 365 * 24 * 3600000) } );
-		req.cookies.set( "remember_token", user.remember_token, { expires: new Date(Date.now() + 20 * 365 * 24 * 3600000) } );
-	},
-	current_user: function(req) {
-		return ModelSync( User.findById(req.session.user_id) );
-	},
-	log_out: function(req) {
-		delete req.session.user_id;
-	}
-};
-{% endhighlight %}
-
 
 With the code above, a user logging in will be remembered in the sense that their browser will get a valid remember token, but it doesn't yet do us any good because the current_user method knows only about the temporary session
 

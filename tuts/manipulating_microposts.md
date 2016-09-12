@@ -370,13 +370,13 @@ var User = sequelize.define('user', {
 	instanceMethods: {
 		...
 		feed: function(page) {
-			return ModelSync(Micropost.findAndCountAll({
+			return Micropost.findAndCountAll({
 				where: { user_id: this.id },
 				include: [ { model: User } ],
 				order: 'micropost.createdAt DESC',
 				offset: page.offset,
 				limit: page.limit
-			}));
+			});
 		}
 	},
 	classMethods: {
@@ -399,7 +399,7 @@ function StaticPagesController() {
 		var current_user = sessionHelper.current_user(req);
 		if (current_user) {
 			var offset = (req.query.page - 1) * req.query.limit;
-			var feed_items = current_user.feed({offset: offset, limit: req.query.limit});
+			var feed_items = ModelSync( current_user.feed({offset: offset, limit: req.query.limit}) );
 			var microposts_count = ModelSync( Micropost.count({ where: { user_id: current_user.id } }) );
 			res.end(JSON.stringify({
 				microposts_count: microposts_count,
