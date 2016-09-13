@@ -5,3 +5,5 @@ relative_permalinks: false
 permalink: /news/:year/:month/:day/:title
 gems:
   - jekyll-sitemap
+exclude:
+  - vendor
