@@ -1,4 +1,5 @@
 markdown: kramdown
+url: https://nodeontrain.xyz
 enforce_ssl: nodeontrain.xyz
 highlighter: rouge
 relative_permalinks: false
