@@ -13,6 +13,12 @@ Although the ultimate goal of [the previous post](https://nodeontrain.xyz/tuts/u
 The analogous command for making a model is `generate model`, which we can use to generate a User model with `name` and `email` attributes.
 
 {% highlight bash %}
+~/sample_app $ trainjs generate database sqlite
+      create  .sequelizerc
+      create  config/database.json
+{% endhighlight %}
+
+{% highlight bash %}
 ~/sample_app $ trainjs generate model User name:string email:string
 	identical  .sequelizerc
 	   create  app/models/user.js
