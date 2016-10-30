@@ -10,7 +10,7 @@ Although the ultimate goal of [the previous post](https://nodeontrain.xyz/tuts/u
 
 ### Database migrations
 
-The analogous command for making a model is `generate model`, which we can use to generate a User model with `name` and `email` attributes.
+Create the database configuration with `generate database` command.
 
 {% highlight bash %}
 ~/sample_app $ trainjs generate database sqlite
@@ -18,11 +18,11 @@ The analogous command for making a model is `generate model`, which we can use t
       create  config/database.json
 {% endhighlight %}
 
+The analogous command for making a model is `generate model`, which we can use to generate a User model with `name` and `email` attributes.
+
 {% highlight bash %}
 ~/sample_app $ trainjs generate model User name:string email:string
-	identical  .sequelizerc
 	   create  app/models/user.js
-	   create  config/database.json
 	   create  db
 	   create  db/migrate
 	   create  db/migrate/20160119110300_create_users.js
